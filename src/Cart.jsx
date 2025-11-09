@@ -15,20 +15,6 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
   const [formErrors, setFormErrors] = useState({});
   const [formStatus, setFormStatus] = useState(null);
 
-  // Add to cart: increase quantity if exists, else add new with quantity 1
-  const addToCart = (item) => {
-    const index = cart.findIndex(i => i.id === item.id);
-    if (index !== -1) {
-      setCart(prev => {
-        const newCart = [...prev];
-        newCart[index] = { ...newCart[index], quantity: (newCart[index].quantity ?? 0) + 1 };
-        return newCart;
-      });
-    } else {
-      setCart(prev => [...prev, { ...item, quantity: 1 }]);
-    }
-  };
-
   // Remove item by id
   const removeItem = (id) => {
     setCart(prev => prev.filter(i => i.id !== id));

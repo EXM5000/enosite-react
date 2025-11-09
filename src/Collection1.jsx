@@ -278,14 +278,6 @@ const descriptionStyle = {
   textAlign: 'center',
 };
 
-const notesPreviewStyle = {
-  fontSize: '0.875rem',
-  color: '#666',
-  margin: '0 20px 16px 20px',
-  fontStyle: 'italic',
-  textAlign: 'center',
-};
-
 const buttonContainerStyle = {
   display: 'flex',
   flexDirection: 'column',
