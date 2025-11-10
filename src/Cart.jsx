@@ -53,11 +53,15 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
 
   const handleCheckoutSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    if (!validateForm()) {
+      console.log('[Cart] Form validation failed:', formErrors, formData);
+      return;
+    }
     // Send form data to Formspree, then request checkout link from backend
     try {
+      console.log('[Cart] Submitting form to Formspree...');
       // 1. Send shipping and cart data to Formspree for notification
-      await fetch('https://formspree.io/f/mzbqzqly', {
+      const formspreeRes = await fetch('https://formspree.io/f/mzbqzqly', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -73,7 +77,19 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
           total: totalPrice,
         }),
       });
+      let formspreeJson = null;
+      try {
+        formspreeJson = await formspreeRes.clone().json();
+      } catch (err) {
+        // ignore JSON parse error
+      }
+      if (formspreeRes.ok) {
+        console.log(`[Cart] Formspree submission succeeded. Status: ${formspreeRes.status}`, formspreeJson);
+      } else {
+        console.log(`[Cart] Formspree submission failed. Status: ${formspreeRes.status}`, formspreeJson);
+      }
       // 2. Request checkout link from Vercel backend
+      console.log('[Cart] Requesting checkout link from backend...');
       const backendRes = await fetch('https://eno-site3-backend-aq6fw13fc-evan-mottleys-projects.vercel.app/api/create-checkout-link', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -85,19 +101,31 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
             price: i.price,
           })),
           shippingData: {
-            name: formData.name,
+            firstName: formData.name.split(' ')[0] || '',
+            lastName: formData.name.split(' ')[1] || '',
             email: formData.email,
-            address1: formData.address1,
-            address2: formData.address2,
+            address_line_1: formData.address1,
+            address_line_2: formData.address2,
             city: formData.city,
-            state: formData.state,
+            province: formData.state,
             postalCode: formData.zip,
             country: formData.country,
           }
         }),
       });
+      let backendJson = null;
+      try {
+        backendJson = await backendRes.clone().json();
+      } catch (err) {
+        // ignore JSON parse error
+      }
+      if (backendRes.ok) {
+        console.log(`[Cart] Backend checkout link succeeded. Status: ${backendRes.status}`, backendJson);
+      } else {
+        console.log(`[Cart] Backend checkout link failed. Status: ${backendRes.status}`, backendJson);
+      }
       if (!backendRes.ok) throw new Error('Checkout link failed');
-      const { checkoutUrl } = await backendRes.json();
+      const { checkoutUrl } = backendJson || {};
       if (!checkoutUrl) throw new Error('No checkout link returned');
       setFormStatus('success');
       // Clear cart and reset form before redirect
@@ -117,7 +145,8 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
       setFormErrors({});
       // Redirect to checkout URL
       window.location.href = checkoutUrl;
-    } catch {
+    } catch (err) {
+      console.log('[Cart] Error during checkout submission:', err);
       setFormStatus('error');
     }
   };
@@ -564,6 +593,19 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
                 onChange={handleInputChange}
                 placeholder="Address Line 2 (optional)"
               />
+
+              {/* City */}
+              <input
+                id="city"
+                name="city"
+                type="text"
+                value={formData.city}
+                onChange={handleInputChange}
+                required
+                placeholder="City"
+                aria-describedby={formErrors.city ? 'error-city' : undefined}
+              />
+              {formErrors.city && <div className="error" id="error-city">{formErrors.city}</div>}
 
               {/* Postal/ZIP Code */}
               <input
