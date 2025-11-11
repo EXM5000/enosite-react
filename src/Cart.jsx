@@ -14,6 +14,42 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
   });
   const [formErrors, setFormErrors] = useState({});
   const [formStatus, setFormStatus] = useState(null);
+  // submissionStage: 'idle' | 'processing' | 'shipping' | 'checkout' | 'error'
+  const [submissionStage, setSubmissionStage] = useState('idle');
+
+  const provincesByCountry = {
+    Canada: [
+      { code: 'AB', name: 'Alberta' },
+      { code: 'BC', name: 'British Columbia' },
+      { code: 'MB', name: 'Manitoba' },
+      { code: 'NB', name: 'New Brunswick' },
+      { code: 'NL', name: 'Newfoundland and Labrador' },
+      { code: 'NS', name: 'Nova Scotia' },
+      { code: 'ON', name: 'Ontario' },
+      { code: 'PE', name: 'Prince Edward Island' },
+      { code: 'QC', name: 'Quebec' },
+      { code: 'SK', name: 'Saskatchewan' }
+    ],
+    'United States': [
+      { code: 'AL', name: 'Alabama' }, { code: 'AK', name: 'Alaska' }, { code: 'AZ', name: 'Arizona' },
+      { code: 'AR', name: 'Arkansas' }, { code: 'CA', name: 'California' }, { code: 'CO', name: 'Colorado' },
+      { code: 'CT', name: 'Connecticut' }, { code: 'DE', name: 'Delaware' }, { code: 'FL', name: 'Florida' },
+      { code: 'GA', name: 'Georgia' }, { code: 'HI', name: 'Hawaii' }, { code: 'ID', name: 'Idaho' },
+      { code: 'IL', name: 'Illinois' }, { code: 'IN', name: 'Indiana' }, { code: 'IA', name: 'Iowa' },
+      { code: 'KS', name: 'Kansas' }, { code: 'KY', name: 'Kentucky' }, { code: 'LA', name: 'Louisiana' },
+      { code: 'ME', name: 'Maine' }, { code: 'MD', name: 'Maryland' }, { code: 'MA', name: 'Massachusetts' },
+      { code: 'MI', name: 'Michigan' }, { code: 'MN', name: 'Minnesota' }, { code: 'MS', name: 'Mississippi' },
+      { code: 'MO', name: 'Missouri' }, { code: 'MT', name: 'Montana' }, { code: 'NE', name: 'Nebraska' },
+      { code: 'NV', name: 'Nevada' }, { code: 'NH', name: 'New Hampshire' }, { code: 'NJ', name: 'New Jersey' },
+      { code: 'NM', name: 'New Mexico' }, { code: 'NY', name: 'New York' }, { code: 'NC', name: 'North Carolina' },
+      { code: 'ND', name: 'North Dakota' }, { code: 'OH', name: 'Ohio' }, { code: 'OK', name: 'Oklahoma' },
+      { code: 'OR', name: 'Oregon' }, { code: 'PA', name: 'Pennsylvania' }, { code: 'RI', name: 'Rhode Island' },
+      { code: 'SC', name: 'South Carolina' }, { code: 'SD', name: 'South Dakota' }, { code: 'TN', name: 'Tennessee' },
+      { code: 'TX', name: 'Texas' }, { code: 'UT', name: 'Utah' }, { code: 'VT', name: 'Vermont' },
+      { code: 'VA', name: 'Virginia' }, { code: 'WA', name: 'Washington' }, { code: 'WV', name: 'West Virginia' },
+      { code: 'WI', name: 'Wisconsin' }, { code: 'WY', name: 'Wyoming' }
+    ]
+  };
 
   // Remove item by id
   const removeItem = (id) => {
@@ -57,11 +93,11 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
       console.log('[Cart] Form validation failed:', formErrors, formData);
       return;
     }
-    // Send form data to Formspree, then request checkout link from backend
+    setSubmissionStage('processing');
     try {
       console.log('[Cart] Submitting form to Formspree...');
       // 1. Send shipping and cart data to Formspree for notification
-      const formspreeRes = await fetch('https://formspree.io/f/mzbqzqly', {
+      const formspreeRes = await fetch('https://formspree.io/f/movkkpog', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -88,8 +124,10 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
       } else {
         console.log(`[Cart] Formspree submission failed. Status: ${formspreeRes.status}`, formspreeJson);
       }
+      setSubmissionStage('shipping');
       // 2. Request checkout link from Vercel backend
       console.log('[Cart] Requesting checkout link from backend...');
+      setSubmissionStage('checkout');
       const backendRes = await fetch('https://eno-site3-backend-aq6fw13fc-evan-mottleys-projects.vercel.app/api/create-checkout-link', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -143,11 +181,13 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
         country: '',
       });
       setFormErrors({});
+      setSubmissionStage('idle');
       // Redirect to checkout URL
       window.location.href = checkoutUrl;
     } catch (err) {
       console.log('[Cart] Error during checkout submission:', err);
       setFormStatus('error');
+      setSubmissionStage('error');
     }
   };
 
@@ -430,6 +470,28 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
         .form-status.error {
           color: #d00;
         }
+        /* Spinner styles */
+        .modal-loading-view {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          min-height: 250px;
+          min-width: 200px;
+        }
+        .modal-spinner {
+          border: 5px solid #eee;
+          border-top: 5px solid #333;
+          border-radius: 50%;
+          width: 48px;
+          height: 48px;
+          animation: spin 0.9s linear infinite;
+          margin-bottom: 24px;
+        }
+        @keyframes spin {
+          0% { transform: rotate(0deg);}
+          100% { transform: rotate(360deg);}
+        }
       `}</style>
 
       <div
@@ -504,143 +566,191 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
       </div>
 
       {(
-        <div className={`modal-overlay${showCheckout ? ' show' : ''}`} role="dialog" aria-modal="true" aria-labelledby="checkout-title" style={{ pointerEvents: showCheckout ? undefined : 'none', visibility: showCheckout ? 'visible' : 'hidden' }}>
+        <div
+          className={`modal-overlay${showCheckout ? ' show' : ''}`}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="checkout-title"
+          style={{ pointerEvents: showCheckout ? undefined : 'none', visibility: showCheckout ? 'visible' : 'hidden' }}
+        >
           <div className="modal">
             <h2 id="checkout-title">Checkout</h2>
-            {formStatus === 'success' && (
-              <div className="form-status" role="alert" tabIndex="-1">
-                Order submitted successfully!
+            {/* Loading and error views based on submissionStage */}
+            {submissionStage !== 'idle' ? (
+              <div className="modal-loading-view">
+                {submissionStage !== 'error' ? (
+                  <>
+                    <div className="modal-spinner" role="status" aria-label="Loading" />
+                    <div style={{ fontSize: '1.12em', marginTop: '8px', color: '#222', textAlign: 'center' }}>
+                      {submissionStage === 'processing' && 'Submitting your order...'}
+                      {submissionStage === 'shipping' && 'Calculating shipping...'}
+                      {submissionStage === 'checkout' && 'Preparing checkout...'}
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div style={{ color: '#d00', fontWeight: 600, marginBottom: '14px', fontSize: '1.08em' }}>
+                      Error submitting order. Please try again.
+                    </div>
+                    <button
+                      type="button"
+                      className="cancel-btn"
+                      onClick={() => {
+                        setSubmissionStage('idle');
+                        setFormStatus(null);
+                        setFormErrors({});
+                      }}
+                    >
+                      Back to Checkout
+                    </button>
+                  </>
+                )}
               </div>
+            ) : (
+              <>
+                {formStatus === 'success' && (
+                  <div className="form-status" role="alert" tabIndex="-1">
+                    Order submitted successfully!
+                  </div>
+                )}
+                {formStatus === 'error' && (
+                  <div className="form-status error" role="alert" tabIndex="-1">
+                    Error submitting order. Please try again.
+                  </div>
+                )}
+                <form onSubmit={handleCheckoutSubmit} noValidate>
+                  {/* Name */}
+                  <input
+                    id="name"
+                    name="name"
+                    type="text"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Name"
+                    aria-describedby={formErrors.name ? 'error-name' : undefined}
+                  />
+                  {formErrors.name && <div className="error" id="error-name">{formErrors.name}</div>}
+                  {/* Email */}
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Email"
+                    className="modal-input"
+                    aria-describedby={formErrors.email ? 'error-email' : undefined}
+                  />
+                  {formErrors.email && <div className="error" id="error-email">{formErrors.email}</div>}
+                  {/* Country */}
+                  <select
+                    id="country"
+                    name="country"
+                    value={formData.country}
+                    onChange={handleInputChange}
+                    required
+                    className="modal-input"
+                    aria-describedby={formErrors.country ? 'error-country' : undefined}
+                  >
+                    <option value="">Select Country</option>
+                    <option value="Canada">Canada</option>
+                    <option value="United States">United States</option>
+                  </select>
+                  {formErrors.country && <div className="error" id="error-country">{formErrors.country}</div>}
+                  {/* State/Province */}
+                  <select
+                    id="state"
+                    name="state"
+                    value={formData.state}
+                    onChange={handleInputChange}
+                    required
+                    className="modal-input"
+                    aria-describedby={formErrors.state ? 'error-state' : undefined}
+                    disabled={!formData.country}
+                  >
+                    <option value="">
+                      Select {formData.country === 'Canada'
+                        ? 'Province'
+                        : formData.country === 'United States'
+                          ? 'State'
+                          : 'Region'}
+                    </option>
+                    {provincesByCountry[formData.country]?.map((region) => (
+                      <option key={region.code} value={region.code}>{region.name}</option>
+                    ))}
+                  </select>
+                  {formErrors.state && <div className="error" id="error-state">{formErrors.state}</div>}
+                  {/* Address Line 1 */}
+                  <input
+                    id="address1"
+                    name="address1"
+                    type="text"
+                    value={formData.address1}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Address Line 1"
+                    aria-describedby={formErrors.address1 ? 'error-address1' : undefined}
+                  />
+                  {formErrors.address1 && <div className="error" id="error-address1">{formErrors.address1}</div>}
+                  {/* Address Line 2 */}
+                  <input
+                    id="address2"
+                    name="address2"
+                    type="text"
+                    value={formData.address2}
+                    onChange={handleInputChange}
+                    placeholder="Address Line 2 (optional)"
+                  />
+                  {/* City */}
+                  <input
+                    id="city"
+                    name="city"
+                    type="text"
+                    value={formData.city}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="City"
+                    aria-describedby={formErrors.city ? 'error-city' : undefined}
+                  />
+                  {formErrors.city && <div className="error" id="error-city">{formErrors.city}</div>}
+                  {/* Postal/ZIP Code */}
+                  <input
+                    id="zip"
+                    name="zip"
+                    type="text"
+                    value={formData.zip}
+                    onChange={handleInputChange}
+                    required
+                    placeholder="Postal/ZIP Code"
+                    aria-describedby={formErrors.zip ? 'error-zip' : undefined}
+                  />
+                  {formErrors.zip && <div className="error" id="error-zip">{formErrors.zip}</div>}
+                  <div className="buttons">
+                    <button
+                      type="button"
+                      className="cancel-btn"
+                      onClick={() => {
+                        setShowCheckout(false);
+                        setFormStatus(null);
+                        setFormErrors({});
+                        setSubmissionStage('idle');
+                      }}
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      type="submit"
+                      className="submit-btn"
+                      disabled={formStatus === 'success'}
+                    >
+                      Submit Order
+                    </button>
+                  </div>
+                </form>
+              </>
             )}
-            {formStatus === 'error' && (
-              <div className="form-status error" role="alert" tabIndex="-1">
-                Error submitting order. Please try again.
-              </div>
-            )}
-            <form onSubmit={handleCheckoutSubmit} noValidate>
-
-              {/* Name */}
-              <input
-                id="name"
-                name="name"
-                type="text"
-                value={formData.name}
-                onChange={handleInputChange}
-                required
-                placeholder="Name"
-                aria-describedby={formErrors.name ? 'error-name' : undefined}
-              />
-              {formErrors.name && <div className="error" id="error-name">{formErrors.name}</div>}
-
-              {/* Email */}
-              <input
-                id="email"
-                name="email"
-                type="email"
-                value={formData.email}
-                onChange={handleInputChange}
-                required
-                placeholder="Email"
-                aria-describedby={formErrors.email ? 'error-email' : undefined}
-              />
-              {formErrors.email && <div className="error" id="error-email">{formErrors.email}</div>}
-
-              {/* Country */}
-              <input
-                id="country"
-                name="country"
-                type="text"
-                value={formData.country}
-                onChange={handleInputChange}
-                required
-                placeholder="Country"
-                aria-describedby={formErrors.country ? 'error-country' : undefined}
-              />
-              {formErrors.country && <div className="error" id="error-country">{formErrors.country}</div>}
-
-              {/* State/Province */}
-              <input
-                id="state"
-                name="state"
-                type="text"
-                value={formData.state}
-                onChange={handleInputChange}
-                required
-                placeholder="State/Province"
-                aria-describedby={formErrors.state ? 'error-state' : undefined}
-              />
-              {formErrors.state && <div className="error" id="error-state">{formErrors.state}</div>}
-
-              {/* Address Line 1 */}
-              <input
-                id="address1"
-                name="address1"
-                type="text"
-                value={formData.address1}
-                onChange={handleInputChange}
-                required
-                placeholder="Address Line 1"
-                aria-describedby={formErrors.address1 ? 'error-address1' : undefined}
-              />
-              {formErrors.address1 && <div className="error" id="error-address1">{formErrors.address1}</div>}
-
-              {/* Address Line 2 */}
-              <input
-                id="address2"
-                name="address2"
-                type="text"
-                value={formData.address2}
-                onChange={handleInputChange}
-                placeholder="Address Line 2 (optional)"
-              />
-
-              {/* City */}
-              <input
-                id="city"
-                name="city"
-                type="text"
-                value={formData.city}
-                onChange={handleInputChange}
-                required
-                placeholder="City"
-                aria-describedby={formErrors.city ? 'error-city' : undefined}
-              />
-              {formErrors.city && <div className="error" id="error-city">{formErrors.city}</div>}
-
-              {/* Postal/ZIP Code */}
-              <input
-                id="zip"
-                name="zip"
-                type="text"
-                value={formData.zip}
-                onChange={handleInputChange}
-                required
-                placeholder="Postal/ZIP Code"
-                aria-describedby={formErrors.zip ? 'error-zip' : undefined}
-              />
-              {formErrors.zip && <div className="error" id="error-zip">{formErrors.zip}</div>}
-
-              <div className="buttons">
-                <button
-                  type="button"
-                  className="cancel-btn"
-                  onClick={() => {
-                    setShowCheckout(false);
-                    setFormStatus(null);
-                    setFormErrors({});
-                  }}
-                >
-                  Cancel
-                </button>
-                <button
-                  type="submit"
-                  className="submit-btn"
-                  disabled={formStatus === 'success'}
-                >
-                  Submit Order
-                </button>
-              </div>
-            </form>
           </div>
         </div>
       )}

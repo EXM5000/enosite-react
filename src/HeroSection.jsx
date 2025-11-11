@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import heroImage from './assets/hero.jpg';
 
@@ -33,12 +31,13 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 1,
+    transform: 'translatey(-20px)',
   },
   heading: {
     color: '#fff',
     fontSize: '3rem',
     fontWeight: 700,
-    marginBottom: `${3 / GOLDEN_RATIO}rem`,
+    marginBottom: '3rem',
     textAlign: 'center',
     letterSpacing: '1px',
     zIndex: 2,
@@ -48,7 +47,7 @@ const styles = {
     color: '#fff',
     fontSize: `${3 / GOLDEN_RATIO}rem`,
     fontWeight: 400,
-    marginBottom: `${3 / (GOLDEN_RATIO * GOLDEN_RATIO)}rem`,
+    marginBottom: '0.75rem',
     textAlign: 'center',
     maxWidth: '600px',
     zIndex: 2,
@@ -72,7 +71,6 @@ const HeroSection = () => (
   <div style={styles.hero}>
     <div style={styles.overlay}>
       <h1 style={styles.heading}>Handcrafted Luxury</h1>
-      <p style={styles.subtitle}></p>
       <button style={styles.button}>Shop Now</button>
     </div>
   </div>

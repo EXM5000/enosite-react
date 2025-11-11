@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import NavBar from './NavBar.jsx';
 import HeroSection from './HeroSection.jsx';
 import Cart from './Cart.jsx';
@@ -13,7 +13,18 @@ import About from './About.jsx';
 import Contact from './Contact.jsx';
 import SpecialFeatures from './Features.jsx';
 
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  React.useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
+
 function App() {
+  React.useEffect(() => {
+    document.title = "Ember & Oak";
+  }, []);
   const [isOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
 
@@ -41,6 +52,7 @@ function App() {
 
   return (
     <Router>
+      <ScrollToTop />
       <NavBar onCartClick={toggleCart} cartCount={totalCartCount} />
       <Routes>
         <Route path="/" element={
