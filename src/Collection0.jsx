@@ -118,6 +118,19 @@ const Collection1 = ({ addToCart }) => {
   return (
     <section style={sectionStyle}>
       <h1 style={headerStyle}>More Options</h1>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        flexWrap: 'wrap',
+        gap: '12px 20px',
+        marginBottom: '30px',
+        fontSize: '0.95rem',
+        color: '#444'
+      }}>
+        <span style={{ whiteSpace: 'nowrap', padding: '4px 8px', backgroundColor: '#f5f5f5', borderRadius: 6 }}>✔ Hand-Poured in Canada</span>
+        <span style={{ whiteSpace: 'nowrap', padding: '4px 8px', backgroundColor: '#f5f5f5', borderRadius: 6 }}>✔ 100% Soy Wax</span>
+        <span style={{ whiteSpace: 'nowrap', padding: '4px 8px', backgroundColor: '#f5f5f5', borderRadius: 6 }}>✔ Clean Burn</span>
+      </div>
       <div style={gridStyle}>
         {holidayCandles.map(candle => (
           <div key={candle.id} style={cardStyle} onClick={() => setSelectedCandle(candle)} onMouseEnter={e => {
@@ -132,12 +145,16 @@ const Collection1 = ({ addToCart }) => {
             </div>
             <h3 style={titleStyle}>{candle.name}</h3>
             <p style={descriptionStyle}>{candle.shortDescription}</p>
+            <p style={{ fontWeight: '700', margin: '6px 20px 0 20px', textAlign: 'center', color: '#111' }}>
+              ${candle.price.toFixed(2)}
+            </p>
+            <div style={{ flexGrow: 1 }}></div>
             <div style={buttonContainerStyle}>
               <button
                 onClick={(e) => { e.stopPropagation(); setSelectedCandle(candle); }}
                 style={viewDetailsButtonStyle}
                 onMouseEnter={e => e.currentTarget.style.backgroundColor = '#d3d3d3'}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = '#f0f0f0'}
+                onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
                 aria-label={`View details of ${candle.name}`}
               >
                 View Details
@@ -288,15 +305,16 @@ const baseButtonStyle = {
 
 const viewDetailsButtonStyle = {
   ...baseButtonStyle,
-  backgroundColor: '#f0f0f0',
+  backgroundColor: 'transparent',
   color: '#000',
+  border: '1px solid #ccc',
+  fontWeight: '400',
 };
 
 const addToCartTextButtonStyle = {
   ...baseButtonStyle,
-  backgroundColor: 'transparent',
-  color: '#000000',
-  padding: '12px 20px',
+  backgroundColor: '#f0f0f0',
+  color: '#000',
   textAlign: 'center',
 };
 
