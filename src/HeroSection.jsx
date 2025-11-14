@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import heroImage from './assets/hero.jpg';
+import customFont from './assets/OrangeAvenueDemoFont.otf';
 
 const GOLDEN_RATIO = 1.618;
 
@@ -25,7 +27,7 @@ const styles = {
     left: 0,
     width: '100%',
     height: '100%',
-    background: 'rgba(0,0,0,0.45)',
+    background: 'rgba(0,0,0,0.1)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -41,7 +43,8 @@ const styles = {
     textAlign: 'center',
     letterSpacing: '1px',
     zIndex: 2,
-    transform: 'translatey(-0px)',
+    transform: 'translatey(-50px)',
+    fontFamily: '"Orange Avenue Demo", sans-serif',
   },
   subtitle: {
     color: '#fff',
@@ -53,17 +56,18 @@ const styles = {
     zIndex: 2,
   },
   button: {
-    background: '#fff',
-    color: '#222',
+    background: 'rgba(255, 255, 255, 0.9)',
+    color: '#222222cb',
     border: 'none',
-    borderRadius: '2rem',
-    padding: `1rem ${GOLDEN_RATIO}rem`,
+    borderRadius: '1rem',
+    padding: `0.6rem ${GOLDEN_RATIO}rem`,
     fontSize: '1.15rem',
     fontWeight: 600,
     cursor: 'pointer',
     boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
     transition: 'background 0.2s, color 0.2s',
     zIndex: 2,
+    transform: 'translatey(-97px)',
   },
 };
 
@@ -71,7 +75,9 @@ const HeroSection = () => (
   <div style={styles.hero}>
     <div style={styles.overlay}>
       <h1 style={styles.heading}>Handcrafted Luxury</h1>
-      <button style={styles.button}>Shop Now</button>
+      <Link to="/collection" style={{ textDecoration: 'none' }}>
+        <button style={styles.button}>Shop Now</button>
+      </Link>
     </div>
   </div>
 );

@@ -574,7 +574,7 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
           style={{ pointerEvents: showCheckout ? undefined : 'none', visibility: showCheckout ? 'visible' : 'hidden' }}
         >
           <div className="modal">
-            <h2 id="checkout-title">Checkout</h2>
+            <h2 id="checkout-title">Shipping Information</h2>
             {/* Loading and error views based on submissionStage */}
             {submissionStage !== 'idle' ? (
               <div className="modal-loading-view">

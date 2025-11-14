@@ -36,6 +36,7 @@ export default function Footer() {
                 name="EMAIL"
                 placeholder="Enter your email"
                 required
+                className="footer-email-input"
               />
               <div style={{ position: 'absolute', left: '-5000px' }} aria-hidden="true">
                 <input
@@ -152,7 +153,7 @@ export default function Footer() {
         .footer-right .subscribe-container form button {
           width: 260px;
         }
-        input[type="email"] {
+        .footer-email-input {
           padding: 12px 14px;
           border: none;
           border-radius: 6px;
