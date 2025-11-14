@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import heroImage from './assets/hero.jpg';
-import customFont from './assets/OrangeAvenueDemoFont.otf';
 
 const GOLDEN_RATIO = 1.618;
 
