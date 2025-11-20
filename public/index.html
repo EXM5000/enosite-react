@@ -10,6 +10,20 @@
       content="Web site created using create-react-app"
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <!-- Preload LCP image: replace /images/HERO_IMAGE.webp with your actual hero image path -->
+    <link
+      rel="preload"
+      as="image"
+      href="/images/HERO_IMAGE.webp"
+      fetchpriority="high"
+    />
+    <link
+      rel="preload"
+      href="/fonts/OrangeAvenueDemoFont.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
     <!--
       manifest.json provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/

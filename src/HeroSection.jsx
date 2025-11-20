@@ -72,6 +72,20 @@ const styles = {
 
 const HeroSection = () => (
   <div style={styles.hero}>
+      <img
+        src={heroImage}
+        alt=""
+        fetchpriority="high"
+        style={{
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          width: '100%',
+          height: '100%',
+          objectFit: 'cover',
+          zIndex: 0,
+        }}
+      />
     <div style={styles.overlay}>
       <h1 style={styles.heading}>Handcrafted Luxury</h1>
       <Link to="/collection" style={{ textDecoration: 'none' }}>
