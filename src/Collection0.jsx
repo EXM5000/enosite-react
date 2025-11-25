@@ -102,11 +102,11 @@ const Collection1 = ({ addToCart }) => {
       longDescription: 'Enjoy the warm glow without any fragrance. Perfect for those who prefer a scent-free ambiance.',
       price: 19.99,
       notes: {
-        top: '',
+        top: '', 
         middle: '',
         base: '',
       },
-      burnTime: '40-50 hours',
+      burnTime: '40-50 hours', 
       size: '8 oz (227g)',
     },
   ];

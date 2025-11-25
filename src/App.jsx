@@ -23,7 +23,7 @@ function ScrollToTop() {
 
 function App() {
   React.useEffect(() => {
-    document.title = "Ember & Oak";
+    document.title = "Ember & Oak | Hand-Poured Soy Candles Online";
   }, []);
   const [isOpen, setIsCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
