@@ -82,10 +82,18 @@ const CandleModal = ({ candle, onClose, onAddToCart }) => {
         </div>
         <p style={{ fontWeight: 'bold', marginTop: 8, color: '#000', fontStyle: 'italic', fontSize: '1rem' }}>${candle.price.toFixed(2)}</p>
         <button
-          onClick={() => onAddToCart(candle)}
-          style={modalAddToCartButtonStyle}
+          onClick={() => {
+            if (!candle.outOfStock) onAddToCart(candle);
+          }}
+          style={{
+            ...modalAddToCartButtonStyle,
+            backgroundColor: candle.outOfStock ? '#e0e0e0' : modalAddToCartButtonStyle.backgroundColor,
+            color: candle.outOfStock ? '#888' : modalAddToCartButtonStyle.color,
+            cursor: candle.outOfStock ? 'not-allowed' : 'pointer'
+          }}
+          disabled={candle.outOfStock}
         >
-          Add to Cart
+          {candle.outOfStock ? 'Sold Out' : 'Add to Cart'}
         </button>
       </div>
     </div>
@@ -98,6 +106,7 @@ const Collection1 = ({ addToCart }) => {
   const holidayCandles = [
     {
       id: 1,
+      outOfStock: true,
       name: 'Fraser Fir',
       image: ffr,
       shortDescription: 'Fresh, forest-inspired aroma reminiscent of evergreen mornings.',
@@ -128,7 +137,7 @@ const Collection1 = ({ addToCart }) => {
     },
     {
       id: 3,
-      name: 'Velvet Plum',
+      name: 'Sugar Plum',
       image: vvp,
       shortDescription: 'Deep, fruity tones with a touch of sweetness for a soft, elegant atmosphere.',
       longDescription: 'Lush plum, dark berries, and a hint of vanilla create a plush, inviting scent that fills your space with warmth and luxury.',
@@ -214,13 +223,26 @@ const Collection1 = ({ addToCart }) => {
                 View Details
               </button>
               <button
-                onClick={(e) => { e.stopPropagation(); handleAddToCart(candle); }}
-                style={addToCartTextButtonStyle}
-                onMouseEnter={e => e.currentTarget.style.color = '#555555'}
-                onMouseLeave={e => e.currentTarget.style.color = '#000000'}
+                onClick={(e) => { 
+                  e.stopPropagation(); 
+                  if (!candle.outOfStock) handleAddToCart(candle); 
+                }}
+                style={{
+                  ...addToCartTextButtonStyle,
+                  backgroundColor: candle.outOfStock ? '#e0e0e0' : addToCartTextButtonStyle.backgroundColor,
+                  color: candle.outOfStock ? '#888' : addToCartTextButtonStyle.color,
+                  cursor: candle.outOfStock ? 'not-allowed' : 'pointer'
+                }}
+                onMouseEnter={e => {
+                  if (!candle.outOfStock) e.currentTarget.style.color = '#555555';
+                }}
+                onMouseLeave={e => {
+                  if (!candle.outOfStock) e.currentTarget.style.color = '#000000';
+                }}
                 aria-label={`Add ${candle.name} to cart`}
+                disabled={candle.outOfStock}
               >
-                Add to Cart
+                {candle.outOfStock ? 'Sold Out' : 'Add to Cart'}
               </button>
             </div>
           </div>

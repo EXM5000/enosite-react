@@ -97,7 +97,7 @@ const Collection1 = ({ addToCart }) => {
 
   const holidayCandles = [
     {
-      id: 1,
+      id: 301,
       name: 'Creamy Vanilla',
       image: vnla,
       shortDescription: 'Smooth, sweet vanilla with a soft, comforting warmth.',
@@ -112,7 +112,7 @@ const Collection1 = ({ addToCart }) => {
       size: '8 oz (227g)',
     },
     {
-      id: 2,
+      id: 302,
       name: 'Pineapple & Sage',
       image: pns,
       shortDescription: 'Bright pineapple balanced with fresh, herbal sage for a clean, uplifting scent.',
@@ -127,7 +127,7 @@ const Collection1 = ({ addToCart }) => {
       size: '7 oz (198g)',
     },
     {
-      id: 3,
+      id: 303,
       name: 'Wild Lavender',
       image: lav,
       shortDescription: 'Soft wild lavender with subtle floral sweetness for a calming atmosphere.',
@@ -142,7 +142,7 @@ const Collection1 = ({ addToCart }) => {
       size: '8.5 oz (241g)',
     },
     {
-      id: 4,
+      id: 304,
       name: 'Smoked Sandalwood',
       image: sndl,
       shortDescription: 'Warm, smoky sandalwood wrapped in earthy spice and subtle amber.',

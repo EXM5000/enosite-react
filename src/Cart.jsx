@@ -58,7 +58,17 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
 
   // Update quantity for item by id
   const updateQuantity = (id, qty) => {
-    const quantity = Math.max(1, Number(qty) || 1);
+    // Allow typing freely, including empty string
+    if (qty === '') {
+      setCart(prev =>
+        prev.map(i => (i.id === id ? { ...i, quantity: '' } : i))
+      );
+      return;
+    }
+
+    // Convert to number and floor to minimum 1
+    const quantity = Math.max(1, parseInt(qty, 10) || 1);
+
     setCart(prev =>
       prev.map(i => (i.id === id ? { ...i, quantity } : i))
     );
@@ -534,7 +544,7 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
                   type="number"
                   min="1"
                   aria-label={`Quantity for ${item.name}`}
-                  value={item.quantity}
+                  value={item.quantity === '' ? '' : item.quantity}
                   onChange={e => updateQuantity(item.id, e.target.value)}
                 />
                 <div className="cart-item-price">${(item.price * item.quantity).toFixed(2)}</div>
