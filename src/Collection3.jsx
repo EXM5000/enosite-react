@@ -82,10 +82,16 @@ const CandleModal = ({ candle, onClose, onAddToCart }) => {
         </div>
         <p style={{ fontWeight: 'bold', marginTop: 8, color: '#000', fontStyle: 'italic', fontSize: '1rem' }}>${candle.price.toFixed(2)}</p>
         <button
-          onClick={() => onAddToCart(candle)}
-          style={modalAddToCartButtonStyle}
+          onClick={() => !candle.outOfStock && onAddToCart(candle)}
+          disabled={candle.outOfStock}
+          style={{
+            ...modalAddToCartButtonStyle,
+            backgroundColor: candle.outOfStock ? '#e0e0e0' : '#f0f0f0',
+            color: candle.outOfStock ? '#888' : '#000',
+            cursor: candle.outOfStock ? 'not-allowed' : 'pointer',
+          }}
         >
-          Add to Cart
+          {candle.outOfStock ? 'Sold Out' : 'Add to Cart'}
         </button>
       </div>
     </div>
@@ -98,6 +104,7 @@ const Collection1 = ({ addToCart }) => {
   const holidayCandles = [
     {
       id: 301,
+      outOfStock: false,
       name: 'Creamy Vanilla',
       image: vnla,
       shortDescription: 'Smooth, sweet vanilla with a soft, comforting warmth.',
@@ -113,6 +120,7 @@ const Collection1 = ({ addToCart }) => {
     },
     {
       id: 302,
+      outOfStock: true,
       name: 'Pineapple & Sage',
       image: pns,
       shortDescription: 'Bright pineapple balanced with fresh, herbal sage for a clean, uplifting scent.',
@@ -128,6 +136,7 @@ const Collection1 = ({ addToCart }) => {
     },
     {
       id: 303,
+      outOfStock: false,
       name: 'Wild Lavender',
       image: lav,
       shortDescription: 'Soft wild lavender with subtle floral sweetness for a calming atmosphere.',
@@ -143,6 +152,7 @@ const Collection1 = ({ addToCart }) => {
     },
     {
       id: 304,
+      outOfStock: false,
       name: 'Smoked Sandalwood',
       image: sndl,
       shortDescription: 'Warm, smoky sandalwood wrapped in earthy spice and subtle amber.',
@@ -199,6 +209,16 @@ const Collection1 = ({ addToCart }) => {
               <p style={{ fontSize: '0.85rem', color: '#777', margin: '0 20px 10px 20px', textAlign: 'center', fontStyle: 'italic' }}>
                 Notes: {candle.notes.top}
               </p>
+              {candle.outOfStock && (
+                <p style={{
+                  textAlign: 'center',
+                  color: '#b00000',
+                  fontWeight: '600',
+                  marginTop: 6
+                }}>
+                  Sold Out
+                </p>
+              )}
             </div>
             <div style={buttonContainerStyle}>
               <button
@@ -211,13 +231,20 @@ const Collection1 = ({ addToCart }) => {
                 View Details
               </button>
               <button
-                onClick={(e) => { e.stopPropagation(); handleAddToCart(candle); }}
-                style={addToCartTextButtonStyle}
-                onMouseEnter={e => e.currentTarget.style.color = '#555555'}
-                onMouseLeave={e => e.currentTarget.style.color = '#000000'}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (!candle.outOfStock) handleAddToCart(candle);
+                }}
+                disabled={candle.outOfStock}
+                style={{
+                  ...addToCartTextButtonStyle,
+                  backgroundColor: candle.outOfStock ? '#e0e0e0' : '#f0f0f0',
+                  color: candle.outOfStock ? '#888' : '#000',
+                  cursor: candle.outOfStock ? 'not-allowed' : 'pointer',
+                }}
                 aria-label={`Add ${candle.name} to cart`}
               >
-                Add to Cart
+                {candle.outOfStock ? 'Sold Out' : 'Add to Cart'}
               </button>
             </div>
           </div>

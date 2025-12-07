@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import heroImage from './assets/hero.jpg';
 
+
 const GOLDEN_RATIO = 1.618;
 
 const styles = {
@@ -38,12 +39,12 @@ const styles = {
     color: '#fff',
     fontSize: '3rem',
     fontWeight: 700,
-    marginBottom: '3rem',
+    marginBottom: '4rem',
     textAlign: 'center',
     letterSpacing: '1px',
     zIndex: 2,
-    transform: 'translatey(-50px)',
-    fontFamily: '"Orange Avenue Demo", sans-serif',
+    transform: 'translateY(-90px)',
+    fontFamily: '"Merriweather", serif',
   },
   subtitle: {
     color: '#fff',
@@ -66,33 +67,39 @@ const styles = {
     boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
     transition: 'background 0.2s, color 0.2s',
     zIndex: 2,
-    transform: 'translatey(-97px)',
+    transform: 'translateY(-140px)',
   },
 };
 
 const HeroSection = () => (
-  <div style={styles.hero}>
-      <img
-        src={heroImage}
-        alt=""
-        fetchpriority="high"
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          objectFit: 'cover',
-          zIndex: 0,
-        }}
-      />
-    <div style={styles.overlay}>
-      <h1 style={styles.heading}>Handcrafted Luxury</h1>
-      <Link to="/collection" style={{ textDecoration: 'none' }}>
-        <button style={styles.button}>Shop Now</button>
-      </Link>
+  <>
+    <link 
+      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" 
+      rel="stylesheet" 
+    />
+    <div style={styles.hero}>
+        <img
+          src={heroImage}
+          alt=""
+          fetchpriority="high"
+          style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            zIndex: 0,
+          }}
+        />
+      <div style={styles.overlay}>
+        <h1 style={styles.heading}>Handcrafted Luxury</h1>
+        <Link to="/collection" style={{ textDecoration: 'none' }}>
+          <button style={styles.button}>Shop Now</button>
+        </Link>
+      </div>
     </div>
-  </div>
+  </>
 );
 
 export default HeroSection;

@@ -82,10 +82,16 @@ const CandleModal = ({ candle, onClose, onAddToCart }) => {
         </div>
         <p style={{ fontWeight: 'bold', marginTop: 8, color: '#000', fontStyle: 'italic', fontSize: '1rem' }}>${candle.price.toFixed(2)}</p>
         <button
-          onClick={() => onAddToCart(candle)}
-          style={modalAddToCartButtonStyle}
+          onClick={() => !candle.outOfStock && onAddToCart(candle)}
+          disabled={candle.outOfStock}
+          style={{
+            ...modalAddToCartButtonStyle,
+            backgroundColor: candle.outOfStock ? '#e0e0e0' : '#f0f0f0',
+            color: candle.outOfStock ? '#888' : '#000',
+            cursor: candle.outOfStock ? 'not-allowed' : 'pointer',
+          }}
         >
-          Add to Cart
+          {candle.outOfStock ? 'Sold Out' : 'Add to Cart'}
         </button>
       </div>
     </div>
@@ -98,6 +104,7 @@ const Collection1 = ({ addToCart }) => {
   const holidayCandles = [
     {
       id: 201,
+      outOfStock: false,
       name: 'Pumpkin Spice Buttercream',
       image: psb,
       shortDescription: 'Warm pumpkin, creamy butter, and cozy spices blended into a soft autumn treat.',
@@ -113,6 +120,7 @@ const Collection1 = ({ addToCart }) => {
     },
     {
       id: 202,
+      outOfStock: false,
       name: 'Apple Ginger Spritz',
       image: ags,
       shortDescription: 'Crisp apple and bright ginger come together for an energizing, sparkling fall scent.',
@@ -128,6 +136,7 @@ const Collection1 = ({ addToCart }) => {
     },
     {
       id: 203,
+      outOfStock: false,
       name: 'Butterscotch & Bourbon',
       image: bnb,
       shortDescription: 'Rich butterscotch and smooth bourbon melt into a warm, indulgent fall fragrance.',
@@ -143,6 +152,7 @@ const Collection1 = ({ addToCart }) => {
     },
     {
       id: 204,
+      outOfStock: false,
       name: 'Caramel Latté',
       image: clt,
       shortDescription: 'Creamy caramel and fresh-roasted espresso wrapped in a smooth, cozy café aroma.',
@@ -196,9 +206,16 @@ const Collection1 = ({ addToCart }) => {
               <p style={{ fontWeight: '700', margin: '6px 20px 0 20px', textAlign: 'center', color: '#111' }}>
                 ${candle.price.toFixed(2)}
               </p>
-              <p style={{ fontSize: '0.85rem', color: '#777', margin: '0 20px 10px 20px', textAlign: 'center', fontStyle: 'italic' }}>
-                Notes: {candle.notes.top}
-              </p>
+              {candle.outOfStock && (
+                <p style={{ 
+                  textAlign: 'center',
+                  color: '#b00000',
+                  fontWeight: '600',
+                  marginTop: 6
+                }}>
+                  Sold Out
+                </p>
+              )}
             </div>
             <div style={buttonContainerStyle}>
               <button
@@ -211,13 +228,20 @@ const Collection1 = ({ addToCart }) => {
                 View Details
               </button>
               <button
-                onClick={(e) => { e.stopPropagation(); handleAddToCart(candle); }}
-                style={addToCartTextButtonStyle}
-                onMouseEnter={e => e.currentTarget.style.color = '#555555'}
-                onMouseLeave={e => e.currentTarget.style.color = '#000000'}
+                onClick={(e) => { 
+                  e.stopPropagation(); 
+                  if (!candle.outOfStock) handleAddToCart(candle); 
+                }}
+                disabled={candle.outOfStock}
+                style={{
+                  ...addToCartTextButtonStyle,
+                  backgroundColor: candle.outOfStock ? '#e0e0e0' : '#f0f0f0',
+                  color: candle.outOfStock ? '#888' : '#000',
+                  cursor: candle.outOfStock ? 'not-allowed' : 'pointer',
+                }}
                 aria-label={`Add ${candle.name} to cart`}
               >
-                Add to Cart
+                {candle.outOfStock ? 'Sold Out' : 'Add to Cart'}
               </button>
             </div>
           </div>

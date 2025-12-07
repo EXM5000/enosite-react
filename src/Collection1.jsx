@@ -122,7 +122,8 @@ const Collection1 = ({ addToCart }) => {
     },
     {
       id: 2,
-      name: 'Okanagan Vinyard',
+      outOfStock: true,
+      name: 'Okanagan Vineyard',
       image: okv,
       shortDescription: 'A crisp, earthy scent inspired by rolling vineyards and golden sunlight.',
       longDescription: 'Inspired by the sun-drenched slopes of the Okanagan, this candle blends fresh grape, green leaves, and subtle oak for a sophisticated, invigorating fragrance.',
@@ -137,6 +138,7 @@ const Collection1 = ({ addToCart }) => {
     },
     {
       id: 3,
+      outOfStock: false,
       name: 'Sugar Plum',
       image: vvp,
       shortDescription: 'Deep, fruity tones with a touch of sweetness for a soft, elegant atmosphere.',
@@ -152,6 +154,7 @@ const Collection1 = ({ addToCart }) => {
     },
     {
       id: 4,
+      outOfStock: false,
       name: 'Midnight Embers',
       image: mbr,
       shortDescription: 'Warm, smoky notes with hints of amber and spice — perfect for quiet nights.',
@@ -205,6 +208,17 @@ const Collection1 = ({ addToCart }) => {
               <p style={{ fontWeight: '700', margin: '6px 20px 0 20px', textAlign: 'center', color: '#111' }}>
                 ${candle.price.toFixed(2)}
               </p>
+              {candle.outOfStock && (
+                <p style={{
+                  fontSize: '0.85rem',
+                  color: '#b00000',
+                  margin: '4px 20px 8px 20px',
+                  textAlign: 'center',
+                  fontWeight: '600'
+                }}>
+                  Sold Out
+                </p>
+              )}
               <p style={{ fontSize: '0.85rem', color: '#AA0000', margin: '4px 20px 8px 20px', textAlign: 'center', fontWeight: '600' }}>
                 Holiday Edition
               </p>

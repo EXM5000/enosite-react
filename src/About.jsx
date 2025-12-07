@@ -1,17 +1,17 @@
 import React from 'react';
-import ffr from './assets/ffr.jpeg';
+import us from './assets/us.png';
 import '@fontsource/roboto';
 
 const ShippingDisc = () => {
   return (
     <section style={containerStyle}>
       <div style={imageContainerStyle}>
-        <img src={ffr} alt="Candles" style={imageStyle} />
+        <img src={us} alt="Candles" style={imageStyle} />
       </div>
       <div style={textContainerStyle}>
         <h2 style={titleStyle}>About Our Brand</h2>
         <p style={textStyle}>
-          Our candles are lovingly handcrafted by two friends in Tsawwassen, BC, in one of our bedrooms. Each candle is made with care, using non-toxic ingredients and 100% soy wax, designed to bring warmth, comfort, and a touch of nostalgia to your home. Thank you for sharing in our journey and supporting our small, heartfelt craft.
+          Our candles are lovingly handcrafted by two friends in Tsawwassen, BC. Each candle is made with care, using non-toxic ingredients and 100% soy wax, designed to bring warmth, comfort, and a touch of nostalgia to your home. Thank you for sharing in our journey and supporting our small, heartfelt craft.
         </p>
       </div>
     </section>

@@ -178,7 +178,6 @@ const Collection1 = ({ addToCart }) => {
             <p style={{ fontSize: '1.1rem', marginBottom: '2rem' }}>
               Discover our unique blends. Contact us to create your custom scent experience.
             </p>
-            <a href="/contact" style={fusionButtonStyle}>Let's Create!</a>
           </div>
         </div>
       </div>
@@ -243,17 +242,6 @@ const fusionCardStyle = {
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   overflow: 'hidden',
-};
-
-const fusionButtonStyle = {
-  display: 'inline-block',
-  backgroundColor: '#f0f0f0',
-  color: '#000',
-  padding: '12px 24px',
-  borderRadius: 8,
-  fontWeight: '600',
-  textDecoration: 'none',
-  transition: 'background-color 0.3s ease, color 0.3s ease',
 };
 
 const imageContainerStyle = {
