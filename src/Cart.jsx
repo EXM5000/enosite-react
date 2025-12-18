@@ -11,6 +11,8 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
     state: '',
     zip: '',
     country: '',
+    phone: '',
+    subscribe: true,
   });
   const [formErrors, setFormErrors] = useState({});
   const [formStatus, setFormStatus] = useState(null);
@@ -119,6 +121,8 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
           state: formData.state,
           zip: formData.zip,
           country: formData.country,
+          phone: formData.phone,
+          subscribe: formData.subscribe,
           cart: cart.map(i => ({ id: i.id, name: i.name, quantity: i.quantity, price: i.price })),
           total: totalPrice,
         }),
@@ -158,6 +162,8 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
             province: formData.state,
             postalCode: formData.zip,
             country: formData.country,
+            phone: formData.phone,
+            subscribe: formData.subscribe,
           }
         }),
       });
@@ -189,6 +195,8 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
         state: '',
         zip: '',
         country: '',
+        phone: '',
+        subscribe: true,
       });
       setFormErrors({});
       setSubmissionStage('idle');
@@ -209,7 +217,8 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
           box-shadow: none !important;
         }
         .cart-container {
-          width: 450px;
+          width: 100vw;
+          max-width: 450px;
           height: 100vh;
           border: 1px solid #ccc;
           border-radius: 6px 0 0 6px;
@@ -368,6 +377,8 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
           width: 100%;
           max-width: 500px;
           margin: 0 auto;
+          margin-left: 5%;
+          margin-right: 5%;
           box-shadow: 0 2px 16px rgba(0,0,0,0.18);
           position: relative;
           color: #111;
@@ -501,6 +512,16 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
         @keyframes spin {
           0% { transform: rotate(0deg);}
           100% { transform: rotate(360deg);}
+        }
+        @media (max-width: 600px) {
+          .modal {
+            width: 90vw;
+            margin-left: 5%;
+            margin-right: 5%;
+          }
+          .modal-overlay {
+            padding: 0 5%;
+          }
         }
       `}</style>
 
@@ -654,6 +675,16 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
                     aria-describedby={formErrors.email ? 'error-email' : undefined}
                   />
                   {formErrors.email && <div className="error" id="error-email">{formErrors.email}</div>}
+                  {/* Phone */}
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="text"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    placeholder="Phone (optional)"
+                    className="modal-input"
+                  />
                   {/* Country */}
                   <select
                     id="country"
@@ -737,6 +768,16 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
                     aria-describedby={formErrors.zip ? 'error-zip' : undefined}
                   />
                   {formErrors.zip && <div className="error" id="error-zip">{formErrors.zip}</div>}
+                  <label style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '1em' }}>
+                    <input
+                      type="checkbox"
+                      name="subscribe"
+                      checked={formData.subscribe}
+                      onChange={e => setFormData(fd => ({ ...fd, subscribe: e.target.checked }))}
+                      style={{ width: '18px', height: '18px' }}
+                    />
+                    Subscribe to email updates
+                  </label>
                   <div className="buttons">
                     <button
                       type="button"
