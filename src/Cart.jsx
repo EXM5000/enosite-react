@@ -142,7 +142,7 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
       // 2. Request checkout link from Vercel backend
       console.log('[Cart] Requesting checkout link from backend...');
       setSubmissionStage('checkout');
-      const backendRes = await fetch('https://eno-site3-backend-mephs6kfl-evan-mottleys-projects.vercel.app/api/create-checkout-link', {
+      const backendRes = await fetch('https://eno-site3-backend-n3kev32gb-evan-mottleys-projects.vercel.app/api/create-checkout-link', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
