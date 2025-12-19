@@ -142,7 +142,7 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
       // 2. Request checkout link from Vercel backend
       console.log('[Cart] Requesting checkout link from backend...');
       setSubmissionStage('checkout');
-      const backendRes = await fetch('https://eno-site3-backend-aq6fw13fc-evan-mottleys-projects.vercel.app/api/create-checkout-link', {
+      const backendRes = await fetch('https://eno-site3-backend-mephs6kfl-evan-mottleys-projects.vercel.app/api/create-checkout-link', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -514,6 +514,28 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
           100% { transform: rotate(360deg);}
         }
         @media (max-width: 600px) {
+          /* Make slide‑out cart full width */
+          .cart-container {
+            width: 100vw !important;
+            max-width: 100vw !important;
+            border-radius: 0 !important;
+          }
+
+          /* Override the inline width and eliminate right margin/overflow */
+          [style*="position: 'fixed'"] {
+            width: 100vw !important;
+            right: 0 !important;
+            left: auto !important;
+            margin: 0 !important;
+          }
+
+          /* Remove modal horizontal margin on mobile */
+          .modal {
+            margin-left: 0 !important;
+            margin-right: 0 !important;
+            width: 100% !important;
+          }
+
           .modal {
             width: 90vw;
             margin-left: 5%;
@@ -522,10 +544,14 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
           .modal-overlay {
             padding: 0 5%;
           }
+          .cart-wrapper {
+            width: 100vw !important;
+          }
         }
       `}</style>
 
       <div
+        className="cart-wrapper"
         style={{
           position: 'fixed',
           top: 0,
@@ -590,7 +616,7 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
               type="button"
               aria-disabled={cart.length === 0}
             >
-              Checkout
+              Checkout with Square
             </button>
           </div>
         </div>
@@ -615,7 +641,7 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
                     <div style={{ fontSize: '1.12em', marginTop: '8px', color: '#222', textAlign: 'center' }}>
                       {submissionStage === 'processing' && 'Submitting your order...'}
                       {submissionStage === 'shipping' && 'Calculating shipping...'}
-                      {submissionStage === 'checkout' && 'Preparing checkout...'}
+                      {submissionStage === 'checkout' && 'Redirecting to Square...'}
                     </div>
                   </>
                 ) : (
@@ -796,7 +822,7 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
                       className="submit-btn"
                       disabled={formStatus === 'success'}
                     >
-                      Submit Order
+                      Proceed to Square
                     </button>
                   </div>
                 </form>

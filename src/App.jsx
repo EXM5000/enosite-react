@@ -12,6 +12,7 @@ import ShippingDisc from './ShippingDisc.jsx';
 import About from './About.jsx';
 import Contact from './Contact.jsx';
 import SpecialFeatures from './Features.jsx';
+import ThankYou from './ThankYou.jsx';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -76,6 +77,7 @@ function App() {
         />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/thankyou" element={<ThankYou />} />
       </Routes>
       <Cart
         cart={cartItems}
