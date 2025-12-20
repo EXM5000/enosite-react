@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
   const [showCheckout, setShowCheckout] = useState(false);
@@ -18,6 +18,11 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
   const [formStatus, setFormStatus] = useState(null);
   // submissionStage: 'idle' | 'processing' | 'shipping' | 'checkout' | 'error'
   const [submissionStage, setSubmissionStage] = useState('idle');
+
+  // Log cart contents whenever it changes
+  useEffect(() => {
+    console.log('[Cart contents updated]', JSON.stringify(cart, null, 2));
+  }, [cart]);
 
   const provincesByCountry = {
     Canada: [
@@ -141,16 +146,25 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
       setSubmissionStage('shipping');
       // 2. Request checkout link from Vercel backend
       console.log('[Cart] Requesting checkout link from backend...');
+      console.log(
+        '[Cart] backend payload cartItems:',
+        cart.map(i => ({
+          id: i.id,
+          name: i.name,
+          quantity: Math.max(1, parseInt(i.quantity, 10) || 1),
+          price: Number(i.price)
+        }))
+      );
       setSubmissionStage('checkout');
-      const backendRes = await fetch('https://eno-site3-backend-n3kev32gb-evan-mottleys-projects.vercel.app/api/create-checkout-link', {
+      const backendRes = await fetch('https://eno-site3-backend-ohh3jpaaj-evan-mottleys-projects.vercel.app/api/create-checkout-link', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           cartItems: cart.map(i => ({
             id: i.id,
             name: i.name,
-            quantity: i.quantity,
-            price: i.price,
+            quantity: Math.max(1, parseInt(i.quantity, 10) || 1),
+            price: Number(i.price),
           })),
           shippingData: {
             firstName: formData.name.split(' ')[0] || '',
