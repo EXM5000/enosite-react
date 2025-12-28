@@ -295,10 +295,10 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
           word-break: break-word;
         }
         .cart-item-qty {
-          width: 64px;
+          width: 36px;
           margin-right: 16px;
-          padding: 6px 8px;
-          font-size: 1.1em;
+          padding: 4px 6px;
+          font-size: 1em;
           border: 1px solid #bbb;
           border-radius: 4px;
           color: #111;
@@ -313,7 +313,7 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
           width: 80px;
           text-align: right;
           margin-right: 16px;
-          font-weight: 600;
+          font-weight: normal;
           font-size: 1.15em;
           color: #111;
         }
@@ -341,7 +341,7 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
           flex-shrink: 0;
         }
         .cart-footer .total {
-          font-weight: bold;
+          font-weight: normal;
           font-size: 1.3em;
           color: #111;
         }
@@ -398,10 +398,20 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
           color: #111;
           font-size: 1.1em;
           font-family: Arial, sans-serif;
-          height: auto;
+          max-height: 90vh;
+          overflow-y: auto;
           display: flex;
           flex-direction: column;
-          justify-content: center;
+        }
+        .modal::-webkit-scrollbar {
+          width: 8px;
+        }
+        .modal::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        .modal::-webkit-scrollbar-thumb {
+          background-color: rgba(0,0,0,0.2);
+          border-radius: 4px;
         }
         .modal h2 {
           margin-top: 0;
@@ -818,6 +828,14 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
                     />
                     Subscribe to email updates
                   </label>
+                  <div style={{
+                    fontSize: '0.9em',
+                    color: '#555',
+                    lineHeight: '1.4',
+                    marginTop: '6px'
+                  }}>
+                    Shipping will be calculated at checkout. Shipping times may vary. For more detailed information, contact <a href="mailto:info@eandoak.ca" style={{ color: '#555', textDecoration: 'underline' }}>info@eandoak.ca</a>. Square may ask for a shipping address at checkout — this will not double charge you.
+                  </div>
                   <div className="buttons">
                     <button
                       type="button"

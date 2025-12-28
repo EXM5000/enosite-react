@@ -2,6 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import heroImage from './assets/hero.jpg';
 
+const reviews = [
+  "\"Beautifully crafted candles, long burn time and unforgettable cozy fragrances.\" - Mario O. Jr.",
+  "\"My girlfriend loved these, 100% recommend.\" - Mac M.",
+  "\"These candles make for perfect gifts!\" - Ella M.",
+  "\"Everyone keeps asking how my house smells so good!\" - Chantelle G.",
+  "\"This company, no joke, restores my faith in humanity.\" - Gregory M.",
+];
 
 const GOLDEN_RATIO = 1.618;
 
@@ -31,29 +38,46 @@ const styles = {
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: window.innerWidth <= 600 ? 'flex-end' : 'center',
+    paddingBottom: window.innerWidth <= 600 ? '3rem' : '0',
     zIndex: 1,
     transform: 'translatey(-20px)',
   },
   heading: {
     color: '#fff',
     fontSize: '3rem',
-    fontWeight: 700,
-    marginBottom: '4rem',
+    fontWeight: 300,
+    marginBottom: window.innerWidth <= 600 ? '3rem' : '1.5rem',
     textAlign: 'center',
     letterSpacing: '1px',
     zIndex: 2,
-    transform: 'translateY(-90px)',
+    transform: window.innerWidth <= 600 ? 'translateY(-260px)' : 'translateY(-90px)',
     fontFamily: '"Merriweather", serif',
   },
-  subtitle: {
-    color: '#fff',
-    fontSize: `${3 / GOLDEN_RATIO}rem`,
-    fontWeight: 400,
-    marginBottom: '0.75rem',
-    textAlign: 'center',
-    maxWidth: '600px',
+  tickerContainer: {
+    position: 'relative',
+    width: window.innerWidth <= 600 ? '80%' : '40%',
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    marginBottom: window.innerWidth <= 600 ? '1rem' : '2rem',
     zIndex: 2,
+    transform: window.innerWidth <= 600 ? 'translateY(0)' : 'translateY(-107px)',
+    maskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
+    WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
+  },
+  ticker: {
+    display: 'inline-block',
+    paddingLeft: '0',
+    animation: 'scrollRightToLeft 150s linear infinite',
+    color: '#ffffffa6',
+    fontFamily: '"Helvetica Neue", Arial, sans-serif',
+    fontSize: '1rem',
+    fontWeight: 400,
+    userSelect: 'none',
+  },
+  review: {
+    display: 'inline-block',
+    marginRight: '4rem',
   },
   button: {
     background: 'rgba(255, 255, 255, 0.9)',
@@ -67,7 +91,7 @@ const styles = {
     boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
     transition: 'background 0.2s, color 0.2s',
     zIndex: 2,
-    transform: 'translateY(-140px)',
+    transform: window.innerWidth <= 600 ? 'translateY(0)' : 'translateY(-120px)',
   },
 };
 
@@ -77,6 +101,12 @@ const HeroSection = () => (
       href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" 
       rel="stylesheet" 
     />
+    <style>{`
+      @keyframes scrollRightToLeft {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+    `}</style>
     <div style={styles.hero}>
         <img
           src={heroImage}
@@ -94,8 +124,15 @@ const HeroSection = () => (
         />
       <div style={styles.overlay}>
         <h1 style={styles.heading}>Handcrafted Luxury</h1>
+        <div style={styles.tickerContainer}>
+          <div style={styles.ticker}>
+            {[...reviews, ...reviews].map((review, index) => (
+              <span key={index} style={styles.review}>{review}</span>
+            ))}
+          </div>
+        </div>
         <Link to="/collection" style={{ textDecoration: 'none' }}>
-          <button style={styles.button}>Shop Now</button>
+          <button style={styles.button}>Shop now</button>
         </Link>
       </div>
     </div>

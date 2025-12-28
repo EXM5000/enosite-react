@@ -209,8 +209,11 @@ const headerStyle = {
 
 const gridStyle = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-  gap: 24,
+  gridTemplateColumns: window.innerWidth <= 640 ? '1fr' : 'repeat(auto-fit, minmax(280px, 1fr))',
+  gap: window.innerWidth <= 640 ? 12 : 24,
+  justifyContent: window.innerWidth <= 640 ? 'center' : 'initial',
+  justifyItems: window.innerWidth <= 640 ? 'center' : 'stretch',
+  maxWidth: '100%',
 };
 
 const cardStyle = {
@@ -223,10 +226,13 @@ const cardStyle = {
   transition: 'transform 0.3s ease, box-shadow 0.3s ease',
   cursor: 'default',
   minHeight: 430,
+  width: window.innerWidth <= 640 ? '90%' : 'auto',
+  margin: window.innerWidth <= 640 ? '0 auto' : 'initial', 
+  justifySelf: window.innerWidth <= 640 ? 'center' : 'auto',
 };
 
 const fusionCardStyle = {
-  gridColumn: 'span 3',
+  gridColumn: window.innerWidth <= 640 ? 'auto' : 'span 3',
   position: 'relative',
   display: 'flex',
   alignItems: 'center',

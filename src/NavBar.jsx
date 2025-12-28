@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import txtLogo from './assets/txtLogo1.png'; // import your logo image
+import { IoCartOutline } from 'react-icons/io5';
 
 function NavBar({ onCartClick, cartCount }) {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -127,7 +128,7 @@ function NavBar({ onCartClick, cartCount }) {
         </div>
 
         <div style={styles.cart} className="navbar-cart" onClick={onCartClick}>
-          🛒
+          <IoCartOutline style={{ transform: 'translateY(5px)' }} />
           <span style={styles.cartCount}>{cartCount}</span>
         </div>
 
@@ -154,9 +155,11 @@ const styles = {
     alignItems: 'center',
     padding: '0 2rem',
     height: '60px',
-    background: 'rgba(255, 255, 255, 0.85)',
-    backdropFilter: 'blur(6px)',
-    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+    background: 'rgba(255, 255, 255, 0.35)',
+    backdropFilter: 'blur(14px) saturate(180%)',
+    WebkitBackdropFilter: 'blur(14px) saturate(180%)',
+    boxShadow: '0 8px 32px rgba(0, 0, 0, 0.12), inset 0 -2px 6px rgba(255, 255, 255, 0.25)',
+    borderBottom: '1px solid rgba(255, 255, 255, 0.35)',
     color: '#0d0d0d',
     width: '100vw',
     boxSizing: 'border-box',
@@ -196,7 +199,7 @@ const styles = {
   },
   cartCount: {
     position: 'absolute',
-    top: '-6px',
+    top: '-1px',
     right: '-6px',
     backgroundColor: '#f6f7f2',
     color: '#0d0d0d',
@@ -205,7 +208,7 @@ const styles = {
     fontSize: '0.75rem',
     fontWeight: 'bold',
     lineHeight: '1',
-    minWidth: '18px',
+    minWidth: '15px',
     textAlign: 'center',
     boxShadow: '0 0 2px rgba(0,0,0,0.5)'
   }

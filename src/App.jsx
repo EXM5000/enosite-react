@@ -66,8 +66,7 @@ function App() {
         <Route
           path="/collection"
           element={
-            <div style={{ paddingTop: '60px' }}>
-              <ShippingDisc />
+            <div style={{ paddingTop: '0px' }}>
               <Collection1 addToCart={addToCart} />
               <Collection2 addToCart={addToCart} />
               <Collection3 addToCart={addToCart} />

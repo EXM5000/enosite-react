@@ -202,31 +202,39 @@ const Collection1 = ({ addToCart }) => {
             </div>
             <div style={{ flexGrow: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-start' }}>
               <h3 style={titleStyle}>{candle.name}</h3>
-              <p style={descriptionStyle}>{candle.shortDescription}</p>
-              <p style={{ fontWeight: '700', margin: '6px 20px 0 20px', textAlign: 'center', color: '#111' }}>
-                ${candle.price.toFixed(2)}
-              </p>
-              {candle.outOfStock && (
-                <p style={{ 
-                  textAlign: 'center',
-                  color: '#b00000',
-                  fontWeight: '600',
-                  marginTop: 6
-                }}>
-                  Sold Out
-                </p>
+              {window.innerWidth > 640 && (
+                <p style={descriptionStyle}>{candle.shortDescription}</p>
+              )}
+              {window.innerWidth <= 640 ? (
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, margin: '8px 20px' }}>
+                  <span style={{ fontWeight: '700', color: '#111' }}>${candle.price.toFixed(2)}</span>
+                  {candle.outOfStock && (
+                    <span style={{ fontSize: '0.8rem', color: '#b00000', fontWeight: '600' }}>Sold Out</span>
+                  )}
+                </div>
+              ) : (
+                <>
+                  <p style={{ fontWeight: '700', margin: '6px 20px 0 20px', textAlign: 'center', color: '#111' }}>
+                    ${candle.price.toFixed(2)}
+                  </p>
+                  {candle.outOfStock && (
+                    <p style={{ textAlign: 'center', color: '#b00000', fontWeight: '600', marginTop: 6 }}>Sold Out</p>
+                  )}
+                </>
               )}
             </div>
             <div style={buttonContainerStyle}>
-              <button
-                onClick={(e) => { e.stopPropagation(); setSelectedCandle(candle); }}
-                style={viewDetailsButtonStyle}
-                onMouseEnter={e => e.currentTarget.style.backgroundColor = '#d3d3d3'}
-                onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
-                aria-label={`View details of ${candle.name}`}
-              >
-                View Details
-              </button>
+              {window.innerWidth > 640 && (
+                <button
+                  onClick={(e) => { e.stopPropagation(); setSelectedCandle(candle); }}
+                  style={viewDetailsButtonStyle}
+                  onMouseEnter={e => e.currentTarget.style.backgroundColor = '#d3d3d3'}
+                  onMouseLeave={e => e.currentTarget.style.backgroundColor = 'transparent'}
+                  aria-label={`View details of ${candle.name}`}
+                >
+                  View Details
+                </button>
+              )}
               <button
                 onClick={(e) => { 
                   e.stopPropagation(); 
@@ -275,8 +283,8 @@ const headerStyle = {
 
 const gridStyle = {
   display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
-  gap: 24,
+  gridTemplateColumns: window.innerWidth <= 640 ? 'repeat(2, 1fr)' : 'repeat(auto-fit, minmax(280px, 1fr))',
+  gap: window.innerWidth <= 640 ? 12 : 24,
 };
 
 const cardStyle = {
@@ -288,7 +296,7 @@ const cardStyle = {
   overflow: 'hidden',
   transition: 'transform 0.3s ease, box-shadow 0.3s ease',
   cursor: 'default',
-  minHeight: 430,
+  minHeight: window.innerWidth <= 640 ? 380 : 430,
 };
 
 const imageContainerStyle = {
@@ -296,7 +304,8 @@ const imageContainerStyle = {
   overflow: 'hidden',
   margin: '10px 10px',
   borderRadius: 8,
-  height: 350,
+  height: window.innerWidth <= 640 ? 'auto' : 350,
+  aspectRatio: window.innerWidth <= 640 ? '1 / 1' : 'auto',
 };
 
 const imageStyle = {
