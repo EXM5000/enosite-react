@@ -8,7 +8,6 @@ import Collection2 from './Collection2.jsx';
 import Collection3 from './Collection3.jsx';
 import Collection0 from './Collection0.jsx';
 import Footer from './Footer.jsx';
-import ShippingDisc from './ShippingDisc.jsx';
 import About from './About.jsx';
 import Contact from './Contact.jsx';
 import SpecialFeatures from './Features.jsx';
