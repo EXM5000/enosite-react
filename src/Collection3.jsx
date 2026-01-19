@@ -136,7 +136,7 @@ const Collection1 = ({ addToCart }) => {
     },
     {
       id: 303,
-      outOfStock: false,
+      outOfStock: true,
       name: 'Wild Lavender',
       image: lav,
       shortDescription: 'Soft wild lavender with subtle floral sweetness for a calming atmosphere.',
@@ -152,7 +152,7 @@ const Collection1 = ({ addToCart }) => {
     },
     {
       id: 304,
-      outOfStock: false,
+      outOfStock: true,
       name: 'Smoked Sandalwood',
       image: sndl,
       shortDescription: 'Warm, smoky sandalwood wrapped in earthy spice and subtle amber.',
