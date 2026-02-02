@@ -139,26 +139,29 @@ export default function Footer() {
         .footer-right .subscribe-container {
           display: flex;
           flex-direction: column;
-          align-items: flex-end;
-          margin-left: auto;
+          align-items: center;
+          max-width: 260px;
+          margin: 0 auto;
+          text-align: center;
         }
         .footer-right .subscribe-container h3 {
           margin-bottom: 8px;
-          text-align: center;
-          width: 260px;
+          width: 100%;
         }
         .footer-right .subscribe-container form {
           align-items: center;
+          width: 100%;
         }
         .footer-right .subscribe-container form button {
-          width: 260px;
+          width: 100%;
         }
         .footer-email-input {
           padding: 12px 14px;
           border: none;
           border-radius: 6px;
           font-size: 1rem;
-          width: 260px;
+          width: 100%;
+          box-sizing: border-box;
         }
         button {
           background-color: #fff;

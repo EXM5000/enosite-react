@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import heroImage from './assets/hero.jpg';
+import heroImage from './assets/springHero.webp';
 
 const reviews = [
   "\"Beautifully crafted candles, long burn time and unforgettable cozy fragrances.\" - Mario O. Jr.",
@@ -34,7 +34,6 @@ const styles = {
     left: 0,
     width: '100%',
     height: '100%',
-    background: 'rgba(0,0,0,0.1)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -45,13 +44,14 @@ const styles = {
   },
   heading: {
     color: '#fff',
+    textShadow: '0 2px 6px rgba(0, 0, 0, 0.35)',
     fontSize: '3rem',
     fontWeight: 300,
     marginBottom: window.innerWidth <= 600 ? '3rem' : '1.5rem',
     textAlign: 'center',
     letterSpacing: '1px',
     zIndex: 2,
-    transform: window.innerWidth <= 600 ? 'translateY(-260px)' : 'translateY(-90px)',
+    transform: window.innerWidth <= 600 ? 'translateY(-310px)' : 'translateY(-100px)',
     fontFamily: '"Merriweather", serif',
   },
   tickerContainer: {
@@ -61,7 +61,7 @@ const styles = {
     whiteSpace: 'nowrap',
     marginBottom: window.innerWidth <= 600 ? '1rem' : '2rem',
     zIndex: 2,
-    transform: window.innerWidth <= 600 ? 'translateY(0)' : 'translateY(-107px)',
+    transform: window.innerWidth <= 600 ? 'translateY(0)' : 'translateY(-117px)',
     maskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
     WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 15%, black 85%, transparent 100%)',
   },
@@ -70,6 +70,7 @@ const styles = {
     paddingLeft: '0',
     animation: 'scrollRightToLeft 150s linear infinite',
     color: '#ffffffa6',
+    textShadow: '0 1px 4px rgba(0, 0, 0, 0.3)',
     fontFamily: '"Helvetica Neue", Arial, sans-serif',
     fontSize: '1rem',
     fontWeight: 400,
@@ -91,7 +92,7 @@ const styles = {
     boxShadow: '0 2px 8px rgba(0,0,0,0.10)',
     transition: 'background 0.2s, color 0.2s',
     zIndex: 2,
-    transform: window.innerWidth <= 600 ? 'translateY(0)' : 'translateY(-120px)',
+    transform: window.innerWidth <= 600 ? 'translateY(0)' : 'translateY(-130px)',
   },
 };
 
@@ -119,6 +120,7 @@ const HeroSection = () => (
             width: '100%',
             height: '100%',
             objectFit: 'cover',
+            objectPosition: 'center -15%',
             zIndex: 0,
           }}
         />

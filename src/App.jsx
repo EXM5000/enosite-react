@@ -3,12 +3,12 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import NavBar from './NavBar.jsx';
 import HeroSection from './HeroSection.jsx';
 import Cart from './Cart.jsx';
-import Collection1 from './Collection1.jsx';
-import Collection2 from './Collection2.jsx';
-import Collection3 from './Collection3.jsx';
+import CollectionPrevious from './CollectionPrevious.jsx';
 import Collection0 from './Collection0.jsx';
+import Collection4 from './Collection4.jsx';
 import Footer from './Footer.jsx';
 import About from './About.jsx';
+import Stores from './Stores.jsx';
 import Contact from './Contact.jsx';
 import SpecialFeatures from './Features.jsx';
 import ThankYou from './ThankYou.jsx';
@@ -58,7 +58,7 @@ function App() {
         <Route path="/" element={
           <>
             <HeroSection />
-            <Collection1 addToCart={addToCart} />
+            <Collection4 addToCart={addToCart} />
             <SpecialFeatures />
           </>
         } />
@@ -66,14 +66,21 @@ function App() {
           path="/collection"
           element={
             <div style={{ paddingTop: '0px' }}>
-              <Collection1 addToCart={addToCart} />
-              <Collection2 addToCart={addToCart} />
-              <Collection3 addToCart={addToCart} />
+              <Collection4 addToCart={addToCart} />
+              <CollectionPrevious addToCart={addToCart} />
               <Collection0 addToCart={addToCart} />
             </div>
           }
         />
-          <Route path="/about" element={<About />} />
+          <Route
+            path="/about"
+            element={
+              <>
+                <About />
+                <Stores />
+              </>
+            }
+          />
           <Route path="/contact" element={<Contact />} />
           <Route path="/thankyou" element={<ThankYou />} />
       </Routes>
