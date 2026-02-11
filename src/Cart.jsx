@@ -834,7 +834,7 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
                     lineHeight: '1.4',
                     marginTop: '6px'
                   }}>
-                    Shipping will be calculated at checkout. Shipping times may vary. For more detailed information, contact <a href="mailto:info@eandoak.ca" style={{ color: '#555', textDecoration: 'underline' }}>info@eandoak.ca</a>. Square may ask for a shipping address at checkout — this will not double charge you.
+                    For applicable items, shipping will be calculated at checkout. Shipping times may vary. For more detailed information, on shipping times and order processing, contact <a href="mailto:info@eandoak.ca" style={{ color: '#555', textDecoration: 'underline' }}>info@eandoak.ca</a>. Square may ask for some information again at checkout; it will not be stored.
                   </div>
                   <div className="buttons">
                     <button

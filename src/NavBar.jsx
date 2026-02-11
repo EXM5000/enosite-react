@@ -85,13 +85,13 @@ function NavBar({ onCartClick, cartCount }) {
           transition: all 0.28s cubic-bezier(.4,2,.6,1);
         }
         .navbar-burger.open .bar1 {
-          transform: rotate(45deg) translate(5px, 5px);
+          transform: rotate(45deg) translate(5px, 6.4px);
         }
         .navbar-burger.open .bar2 {
           opacity: 0;
         }
         .navbar-burger.open .bar3 {
-          transform: rotate(-45deg) translate(6px, -6px);
+          transform: rotate(-45deg) translate(6px, -7.4px);
         }
         @keyframes navbarMenuDropdown {
           from { opacity: 0; transform: translateY(-15px);}
@@ -124,6 +124,7 @@ function NavBar({ onCartClick, cartCount }) {
             <li><Link to="/collection" style={styles.individualLinks}>Shop</Link></li>
             <li><Link to="/about" style={styles.individualLinks}>About</Link></li>
             <li><Link to="/contact" style={styles.individualLinks}>Contact</Link></li>
+            <li><Link to="/events" style={styles.individualLinks}>Events</Link></li>
           </ul>
         </div>
 
@@ -135,11 +136,22 @@ function NavBar({ onCartClick, cartCount }) {
         {/* Mobile dropdown menu */}
         {menuOpen && (
           <div className="navbar-menu-mobile">
-            <ul style={{ ...styles.links, flexDirection: 'column', gap: '0.75rem', alignItems: 'center', margin: 0, padding: 0 }}>
+            <ul
+              style={{
+                ...styles.links,
+                flexDirection: 'column',
+                gap: '0.75rem',
+                alignItems: 'center',
+                margin: 0,
+                padding: 0,
+                fontFamily: 'Roboto, sans-serif'
+              }}
+            >
               <li><Link to="/" style={styles.individualLinks} onClick={handleMenuLinkClick}>Home</Link></li>
               <li><Link to="/collection" style={styles.individualLinks} onClick={handleMenuLinkClick}>Shop</Link></li>
               <li><Link to="/about" style={styles.individualLinks} onClick={handleMenuLinkClick}>About</Link></li>
               <li><Link to="/contact" style={styles.individualLinks} onClick={handleMenuLinkClick}>Contact</Link></li>
+              <li><Link to="/events" style={styles.individualLinks} onClick={handleMenuLinkClick}>Events</Link></li>
             </ul>
           </div>
         )}
@@ -178,9 +190,15 @@ const styles = {
     objectFit: 'contain'
   },
   centerLinks: {
-    position: 'absolute',
+    position: 'fixed',
+    top: 0,
     left: '50%',
-    transform: 'translateX(-50%)'
+    transform: 'translateX(-55%)',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '60px', // match nav height
+    zIndex: 1000
   },
   links: {
     listStyle: 'none',

@@ -96,49 +96,52 @@ const styles = {
   },
 };
 
-const HeroSection = () => (
-  <>
-    <link 
-      href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" 
-      rel="stylesheet" 
-    />
-    <style>{`
-      @keyframes scrollRightToLeft {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-      }
-    `}</style>
-    <div style={styles.hero}>
-        <img
-          src={heroImage}
-          alt=""
-          fetchpriority="high"
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            objectFit: 'cover',
-            objectPosition: 'center -15%',
-            zIndex: 0,
-          }}
-        />
-      <div style={styles.overlay}>
-        <h1 style={styles.heading}>Handcrafted Luxury</h1>
-        <div style={styles.tickerContainer}>
-          <div style={styles.ticker}>
-            {[...reviews, ...reviews].map((review, index) => (
-              <span key={index} style={styles.review}>{review}</span>
-            ))}
+const HeroSection = () => {
+
+  return (
+    <>
+      <link 
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" 
+        rel="stylesheet" 
+      />
+      <style>{`
+        @keyframes scrollRightToLeft {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(-50%); }
+        }
+      `}</style>
+      <div style={styles.hero}>
+          <img
+            src={heroImage}
+            alt=""
+            fetchpriority="high"
+            style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              objectPosition: 'center -15%',
+              zIndex: 0,
+            }}
+          />
+        <div style={styles.overlay}>
+          <h1 style={styles.heading}>Handcrafted Luxury</h1>
+          <div style={styles.tickerContainer}>
+            <div style={styles.ticker}>
+              {[...reviews, ...reviews].map((review, index) => (
+                <span key={index} style={styles.review}>{review}</span>
+              ))}
+            </div>
           </div>
+          <Link to="/collection" style={{ textDecoration: 'none' }}>
+            <button style={styles.button}>Shop now</button>
+          </Link>
         </div>
-        <Link to="/collection" style={{ textDecoration: 'none' }}>
-          <button style={styles.button}>Shop now</button>
-        </Link>
       </div>
-    </div>
-  </>
-);
+    </>
+  );
+};
 
 export default HeroSection;

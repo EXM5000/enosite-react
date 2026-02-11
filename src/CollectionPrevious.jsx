@@ -282,9 +282,11 @@ const Collection1 = ({ addToCart }) => {
                   Sold Out
                 </p>
               )}
-              <p style={{ fontSize: '0.85rem', color: '#AA0000', margin: '4px 20px 8px 20px', textAlign: 'center', fontWeight: '600' }}>
-                Holiday Edition
-              </p>
+              {(candle.name === 'Midnight Embers' || candle.name === 'Sugar Plum') && (
+                <p style={{ fontSize: '0.85rem', color: '#AA0000', margin: '4px 20px 8px 20px', textAlign: 'center', fontWeight: '600' }}>
+                  Holiday Edition
+                </p>
+              )}
               {window.innerWidth > 640 && (
                 <p style={{ fontSize: '0.85rem', color: '#777', margin: '0 20px 10px 20px', textAlign: 'center', fontStyle: 'italic' }}>
                   Notes: {candle.notes.top}

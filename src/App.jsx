@@ -12,6 +12,7 @@ import Stores from './Stores.jsx';
 import Contact from './Contact.jsx';
 import SpecialFeatures from './Features.jsx';
 import ThankYou from './ThankYou.jsx';
+import CollectionEvents from './CollectionEvents.jsx';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -74,15 +75,19 @@ function App() {
         />
           <Route
             path="/about"
+            element={<About />}
+          />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/thankyou" element={<ThankYou />} />
+          <Route
+            path="/events"
             element={
               <>
-                <About />
+                <CollectionEvents addToCart={addToCart} />
                 <Stores />
               </>
             }
           />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/thankyou" element={<ThankYou />} />
       </Routes>
       <Cart
         cart={cartItems}
