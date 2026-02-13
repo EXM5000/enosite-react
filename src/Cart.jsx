@@ -83,6 +83,11 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
 
   const cartCount = cart.reduce((acc, i) => acc + i.quantity, 0);
   const totalPrice = cart.reduce((acc, i) => acc + i.quantity * i.price, 0);
+  const ticketOnly =
+    cart.length > 0 &&
+    cart.every(i =>
+      i.id === 'workshop-solo' || i.id === 'workshop-duo'
+    );
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -635,7 +640,49 @@ const Cart = ({ cart, setCart, isOpen, toggleCart }) => {
               Total: ${totalPrice.toFixed(2)}
             </div>
             <button
-              onClick={() => setShowCheckout(true)}
+              onClick={async () => {
+                if (ticketOnly) {
+                  try {
+                    const backendRes = await fetch('https://eno-site3-backend-ohh3jpaaj-evan-mottleys-projects.vercel.app/api/create-checkout-link', {
+                      method: 'POST',
+                      headers: { 'Content-Type': 'application/json' },
+                      body: JSON.stringify({
+                        cartItems: cart.map(i => ({
+                          id: i.id,
+                          name: i.name,
+                          quantity: Math.max(1, parseInt(i.quantity, 10) || 1),
+                          price: Number(i.price),
+                        })),
+                        shippingData: {
+                          firstName: 'Evan',
+                          lastName: 'Mottley',
+                          email: 'info@eandoak.ca',
+                          address_line_1: '1179 Pacific Dr',
+                          address_line_2: '',
+                          city: 'Delta',
+                          province: 'BC',
+                          postalCode: 'V4M2K2',
+                          country: 'Canada',
+                          phone: '',
+                          subscribe: true,
+                        }
+                      }),
+                    });
+
+                    const backendJson = await backendRes.json();
+                    if (!backendRes.ok || !backendJson.checkoutUrl) {
+                      throw new Error('Checkout link failed');
+                    }
+
+                    setCart([]);
+                    window.location.href = backendJson.checkoutUrl;
+                  } catch (err) {
+                    console.error('Ticket checkout failed:', err);
+                  }
+                } else {
+                  setShowCheckout(true);
+                }
+              }}
               disabled={cart.length === 0}
               type="button"
               aria-disabled={cart.length === 0}

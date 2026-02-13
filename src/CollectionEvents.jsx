@@ -183,7 +183,7 @@ const Collection1 = ({ addToCart }) => {
             </p>
             <h3 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>The Candle Workshop</h3>
             <p style={{ fontSize: '1rem', marginBottom: '2rem' }}>
-            Learn about the careful, intricate process required to make a great candle as you pour two of your own candles with your choice of scent and a custom label.<br/><br/>3:00pm - 4:30pm, March 28, The Vault Room.
+            Learn about the careful, intricate process required to make a great candle as you pour two of your own candles with your choice of scent and a custom label.<br/><br/>3:00pm - 4:30pm, March 28 <br/><br/> The Vault Room, 1248 56th st, Delta, BC
             </p>
             <div style={{ display: 'flex', flexDirection: 'row', gap: 12, width: '100%', maxWidth: 400, justifyContent: 'center' }}>
               <button
