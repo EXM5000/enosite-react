@@ -123,6 +123,16 @@ const Collection1 = ({ addToCart }) => {
     addToCart(duoTicket);
   };
 
+  // Responsive button container style for Solo and Duo tickets
+  const ticketButtonContainerStyle = {
+    display: 'flex',
+    flexDirection: window.innerWidth <= 640 ? 'column' : 'row',
+    gap: window.innerWidth <= 640 ? 8 : 12,
+    width: '100%',
+    maxWidth: 400,
+    justifyContent: 'center',
+  };
+
   return (
     <section style={sectionStyle}>
       <div style={{
@@ -185,7 +195,7 @@ const Collection1 = ({ addToCart }) => {
             <p style={{ fontSize: '1rem', marginBottom: '2rem' }}>
             Learn about the careful, intricate process required to make a great candle as you pour two candles each with your choice of scent and a custom label.<br/><br/>3:00pm - 4:30pm, March 28 <br/><br/> The Vault Room, 1248 56th st, Delta, BC
             </p>
-            <div style={{ display: 'flex', flexDirection: 'row', gap: 12, width: '100%', maxWidth: 400, justifyContent: 'center' }}>
+            <div style={ticketButtonContainerStyle}>
               <button
                 onClick={handleSoloAdd}
                 style={{ ...baseButtonStyle, backgroundColor: '#f0f0f0', color: '#000' }}

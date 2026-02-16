@@ -60,11 +60,19 @@ const ShippingDisc = () => {
             </li>
             <li>
               <div style={storeNameStyle}>North Delta Farmers Market</div>
-              <div style={locationStyle}>Saturdays, May 30 to Oct 3 - 11415 84 Ave, Delta, BC V4C 2L9</div>
+              <div style={locationStyle}>May 30, Jun 27, Jul 11, Aug 8, Sept 5 - 11415 84 Ave, Delta, BC V4C 2L9</div>
+            </li>
+            <li>
+              <div style={storeNameStyle}>Clayton Night Market</div>
+              <div style={locationStyle}>July 17, Aug 7 - 7155 187a St. Surrey, BC, V4N 6L9</div>
             </li>
             <li>
               <div style={storeNameStyle}>Portabello West Summer Shoppe Market</div>
               <div style={locationStyle}>Aug 29 & 30 - 181 Roundhouse Mews, Vancouver, BC V6Z 2W3</div>
+            </li>
+            <li>
+              <div style={storeNameStyle}>Silkthreads Holiday Market</div>
+              <div style={locationStyle}>Nov 12, 13, 14 - TBD</div>
             </li>
             <li>
               <div style={storeNameStyle}>Langley Grand Christmas Market</div>
@@ -72,7 +80,7 @@ const ShippingDisc = () => {
             </li>
             <li>
               <div style={storeNameStyle}>Chilliwack Grand Festive Market</div>
-              <div style={locationStyle}>Nov 21 - 45530 Spadina Ave, Chilliwack, BC V2P 1V3</div>
+              <div style={locationStyle}>Nov 28 - 45530 Spadina Ave, Chilliwack, BC V2P 1V3</div>
             </li>
           </ul>
         </div>
