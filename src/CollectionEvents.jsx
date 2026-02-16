@@ -183,20 +183,22 @@ const Collection1 = ({ addToCart }) => {
             </p>
             <h3 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>The Candle Workshop</h3>
             <p style={{ fontSize: '1rem', marginBottom: '2rem' }}>
-            Learn about the careful, intricate process required to make a great candle as you pour two of your own candles with your choice of scent and a custom label.<br/><br/>3:00pm - 4:30pm, March 28 <br/><br/> The Vault Room, 1248 56th st, Delta, BC
+            Learn about the careful, intricate process required to make a great candle as you pour two candles each with your choice of scent and a custom label.<br/><br/>3:00pm - 4:30pm, March 28 <br/><br/> The Vault Room, 1248 56th st, Delta, BC
             </p>
             <div style={{ display: 'flex', flexDirection: 'row', gap: 12, width: '100%', maxWidth: 400, justifyContent: 'center' }}>
               <button
                 onClick={handleSoloAdd}
                 style={{ ...baseButtonStyle, backgroundColor: '#f0f0f0', color: '#000' }}
+                aria-label="Solo Ticket (1 Person) - $40"
+                dangerouslySetInnerHTML={{ __html: "Solo Ticket<br/>(1 Person) - $40" }}
               >
-                Solo Ticket - $40
               </button>
               <button
                 onClick={handleDuoAdd}
                 style={{ ...baseButtonStyle, backgroundColor: '#f0f0f0', color: '#000' }}
+                aria-label="Duo Ticket (2 People) - $70"
+                dangerouslySetInnerHTML={{ __html: "Duo Ticket<br/>(2 People) - $70" }}
               >
-                Duo Ticket - $70
               </button>
             </div>
           </div>
