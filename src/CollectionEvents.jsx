@@ -102,21 +102,6 @@ const Collection1 = ({ addToCart }) => {
     addToCart(candle);
   };
 
-  const soloTicket = {
-    id: 'workshop-solo',
-    name: 'Candle Workshop Solo Ticket',
-    image: fusionBg,
-    price: 40,
-  };
-
-  const duoTicket = {
-    id: 'workshop-duo',
-    name: 'Candle Workshop Duo Ticket',
-    image: fusionBg,
-    price: 70,
-  };
-
-
   // Responsive button container style for Solo and Duo tickets
   const ticketButtonContainerStyle = {
     display: 'flex',
