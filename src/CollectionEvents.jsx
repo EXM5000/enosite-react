@@ -91,6 +91,9 @@ const CandleModal = ({ candle, onClose, onAddToCart }) => {
 
 const Collection1 = ({ addToCart }) => {
   const [selectedCandle, setSelectedCandle] = useState(null);
+  const [showInterestModal, setShowInterestModal] = useState(false);
+  const [interestEmail, setInterestEmail] = useState('');
+  const [interestParticipants, setInterestParticipants] = useState('');
 
   const holidayCandles = [
   ];
@@ -126,11 +129,12 @@ const Collection1 = ({ addToCart }) => {
   // Responsive button container style for Solo and Duo tickets
   const ticketButtonContainerStyle = {
     display: 'flex',
-    flexDirection: window.innerWidth <= 640 ? 'column' : 'row',
-    gap: window.innerWidth <= 640 ? 8 : 12,
+    flexDirection: 'column',
+    gap: 8,
     width: '100%',
     maxWidth: 400,
     justifyContent: 'center',
+    alignItems: 'center',
   };
 
   return (
@@ -196,19 +200,15 @@ const Collection1 = ({ addToCart }) => {
             Learn about the careful, intricate process required to make a great candle as you pour two candles each with your choice of scent and a custom label.<br/><br/>3:00pm - 4:30pm, March 28 <br/><br/> The Vault Room, 1248 56th st, Delta, BC
             </p>
             <div style={ticketButtonContainerStyle}>
+              <p style={{ fontStyle: 'italic', marginBottom: 8, fontSize: '0.9rem', textAlign: 'center' }}>
+                This class is sold out.
+              </p>
               <button
-                onClick={handleSoloAdd}
+                onClick={() => setShowInterestModal(true)}
                 style={{ ...baseButtonStyle, backgroundColor: '#f0f0f0', color: '#000' }}
-                aria-label="Solo Ticket (1 Person) - $40"
-                dangerouslySetInnerHTML={{ __html: "Solo Ticket<br/>(1 Person) - $40" }}
+                aria-label="I'm interested in the next class"
               >
-              </button>
-              <button
-                onClick={handleDuoAdd}
-                style={{ ...baseButtonStyle, backgroundColor: '#f0f0f0', color: '#000' }}
-                aria-label="Duo Ticket (2 People) - $70"
-                dangerouslySetInnerHTML={{ __html: "Duo Ticket<br/>(2 People) - $70" }}
-              >
+                I'm interested in the next class!
               </button>
             </div>
           </div>
@@ -219,6 +219,109 @@ const Collection1 = ({ addToCart }) => {
         onClose={() => setSelectedCandle(null)}
         onAddToCart={handleAddToCart}
       />
+      {showInterestModal && (
+        <div style={modalOverlayStyle} onClick={() => setShowInterestModal(false)}>
+          <div
+            style={{
+              ...modalContentStyle,
+              textAlign: 'center',
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setShowInterestModal(false)}
+              style={modalCloseButtonStyle}
+              aria-label="Close modal"
+            >
+              &times;
+            </button>
+
+            <h2 style={{ marginTop: 16, marginBottom: 20, fontWeight: '800', fontSize: '1.8rem', color: '#222' }}>
+              Reserve your spot
+            </h2>
+
+            <form
+              style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'center' }}
+              onSubmit={async (e) => {
+                e.preventDefault();
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(interestEmail)) {
+                  alert('Please enter a valid email address.');
+                  return;
+                }
+                try {
+                  const response = await fetch('https://formspree.io/f/movkkpog', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: interestEmail, participants: interestParticipants })
+                  });
+                  if (response.ok) {
+                    setInterestEmail('');
+                    setInterestParticipants('');
+                    alert("Thanks! You're on the list.");
+                  } else {
+                    alert('There was a problem submitting your request.');
+                  }
+                } catch (err) {
+                  console.error(err);
+                  alert('Network error. Please try again.');
+                }
+              }}
+            >
+              <input
+                type="email"
+                name="email"
+                placeholder="Your email"
+                required
+                value={interestEmail}
+                onChange={(e) => setInterestEmail(e.target.value)}
+                style={{
+                  padding: '12px 14px',
+                  borderRadius: 8,
+                  border: '1px solid #ccc',
+                  fontSize: '1rem',
+                  width: '100%',
+                  maxWidth: 460,
+                }}
+              />
+
+              <input
+                type="text"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                name="participants"
+                placeholder="Number of participants"
+                required
+                min="1"
+                value={interestParticipants}
+                onChange={(e) => setInterestParticipants(e.target.value)}
+                style={{
+                  padding: '12px 14px',
+                  borderRadius: 8,
+                  border: '1px solid #ccc',
+                  fontSize: '1rem',
+                  width: '100%',
+                  maxWidth: 460,
+                }}
+              />
+
+              <button
+                type="submit"
+                style={{
+                  ...baseButtonStyle,
+                  backgroundColor: '#000',
+                  color: '#fff',
+                }}
+              >
+                Submit
+              </button>
+              <p style={{ fontSize: '0.9rem', color: '#555', marginTop: 12, textAlign: 'center' }}>
+                We will send you an email before tickets become available for the next class, so that you can lock in your spot before everyone else.
+              </p>
+            </form>
+          </div>
+        </div>
+      )}
     </section>
   );
 };
@@ -366,8 +469,8 @@ const modalContentStyle = {
 
 const modalCloseButtonStyle = {
   position: 'absolute',
-  top: 12,
-  right: 16,
+  top: 6,
+  right: 6,
   background: 'none',
   border: 'none',
   fontSize: 28,
@@ -376,6 +479,11 @@ const modalCloseButtonStyle = {
   color: '#666',
   lineHeight: 1,
   outline: 'none',
+  // Mobile adjustment
+  '@media (max-width: 640px)': {
+    top: 0,
+    right: 0,
+  },
 };
 
 const modalAddToCartButtonStyle = {
