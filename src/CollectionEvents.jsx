@@ -116,15 +116,6 @@ const Collection1 = ({ addToCart }) => {
     price: 70,
   };
 
-  const handleSoloAdd = (e) => {
-    e.stopPropagation();
-    addToCart(soloTicket);
-  };
-
-  const handleDuoAdd = (e) => {
-    e.stopPropagation();
-    addToCart(duoTicket);
-  };
 
   // Responsive button container style for Solo and Duo tickets
   const ticketButtonContainerStyle = {
