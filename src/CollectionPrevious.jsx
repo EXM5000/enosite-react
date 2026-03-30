@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import '@fontsource/roboto';
 import vvp from './assets/303temp.jpg';
 import mbr from './assets/301temp.jpg';
-import vnla from './assets/103sm.webp';
 import clt from './assets/202temp.jpg';
 import bnb from './assets/201temp.jpg';
 import psb from './assets/203temp.jpg';
@@ -204,22 +203,6 @@ const Collection1 = ({ addToCart }) => {
     burnTime: '50-60 hours',
     size: '8 oz (227g)',
 },
-    {
-      id: 501,
-      outOfStock: false,
-      name: 'Creamy Vanilla',
-      image: vnla,
-      shortDescription: 'Classic creamy vanilla bean with a soft, comforting warmth.',
-      longDescription: 'Smooth vanilla bean and a touch of sweet cream create a timeless, cozy aroma perfect for any season.',
-      price: 19.99,
-      notes: {
-        top: 'Vanilla Bean',
-        middle: 'Sweet Cream',
-        base: 'Warm Sugar, Musk',
-      },
-      burnTime: '50-60 hours',
-      size: '8 oz (227g)',
-    },
   ];
 
   const handleAddToCart = (candle) => {
