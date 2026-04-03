@@ -103,9 +103,17 @@ const Collection1 = ({ addToCart }) => {
   };
 
   // Responsive button container style for Solo and Duo tickets
+  // Use state to track window width for responsive styles
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 640);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const ticketButtonContainerStyle = {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: isMobile ? 'column' : 'row',
     gap: 8,
     width: '100%',
     maxWidth: 400,
@@ -173,18 +181,48 @@ const Collection1 = ({ addToCart }) => {
             </p>
             <h3 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>The Candle Workshop</h3>
             <p style={{ fontSize: '1rem', marginBottom: '2rem' }}>
-            Learn about the careful, intricate process required to make a great candle as you pour two candles each with your choice of scent and a custom label.<br/><br/>3:00pm - 4:30pm, March 28 <br/><br/> The Vault Room, 1248 56th st, Delta, BC
+              Learn about the careful, intricate process required to make a great candle as you pour two candles each with your choice of scent and a custom label.<br/><br/>5:00pm, April 25<br/><br/> The Vault Room, 1248 56th st, Delta, BC
             </p>
             <div style={ticketButtonContainerStyle}>
-              <p style={{ fontStyle: 'italic', marginBottom: 8, fontSize: '0.9rem', textAlign: 'center' }}>
-                This class is sold out.
-              </p>
               <button
-                onClick={() => setShowInterestModal(true)}
-                style={{ ...baseButtonStyle, backgroundColor: '#f0f0f0', color: '#000' }}
-                aria-label="I'm interested in the next class"
+                style={{
+                  ...baseButtonStyle,
+                  backgroundColor: '#f0f0f0',
+                  color: '#000',
+                  width: isMobile ? '100%' : '48%',
+                }}
+                onClick={() =>
+                  handleAddToCart({
+                    id: 'workshop-solo',
+                    name: 'Candle Workshop Ticket (Single)',
+                    price: 45.00,
+                    type: 'workshop-ticket',
+                    details: 'Admits one person. April 25, 5:00pm at The Vault Room.',
+                  })
+                }
+                aria-label="Purchase single workshop ticket"
               >
-                I'm interested in the next class!
+                Solo Ticket – $45<br/>(One Person)
+              </button>
+              <button
+                style={{
+                  ...baseButtonStyle,
+                  backgroundColor: '#f0f0f0',
+                  color: '#000',
+                  width: isMobile ? '100%' : '48%',
+                }}
+                onClick={() =>
+                  handleAddToCart({
+                    id: 'workshop-duo',
+                    name: 'Candle Workshop Ticket (Two People)',
+                    price: 80.00,
+                    type: 'workshop-ticket',
+                    details: 'Admits two people. April 25, 5:00pm at The Vault Room.',
+                  })
+                }
+                aria-label="Purchase two-person workshop ticket"
+              >
+                Duo Ticket – $80<br/>(Two People)
               </button>
             </div>
           </div>
