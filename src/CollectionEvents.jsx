@@ -101,8 +101,8 @@ const Collection1 = ({ addToCart }) => {
   const handleAddToCart = (candle) => {
     addToCart(candle);
   };
-
-  // Responsive button container style for Solo and Duo tickets
+/*
+// Responsive button container style for Solo and Duo tickets
   // Use state to track window width for responsive styles
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 640);
   useEffect(() => {
@@ -120,7 +120,7 @@ const Collection1 = ({ addToCart }) => {
     justifyContent: 'center',
     alignItems: 'center',
   };
-
+*/
   return (
     <section style={sectionStyle}>
       <div style={{
