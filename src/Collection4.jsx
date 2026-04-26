@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import '@fontsource/roboto';
-import wtj from './assets/401wtj.webp';
-import gfs from './assets/402gfs.webp';
-import lnl from './assets/403lnl.webp';
-import cln from './assets/404cln.webp';
+import wtj from './assets/Spring/4.png';
+import gfs from './assets/Spring/1.png';
+import lnl from './assets/Spring/2.png';
+import cln from './assets/Spring/3.png';
 
 const CandleModal = ({ candle, onClose, onAddToCart }) => {
   const [visible, setVisible] = useState(false);
@@ -48,7 +48,7 @@ const CandleModal = ({ candle, onClose, onAddToCart }) => {
           <img
             src={candle.image}
             alt={candle.name}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ width: '100%', height: '100%', objectFit: 'cover', transform: 'scale(1.12)', objectPosition: 'center' }}
           />
         </div>
         <h2 style={{ marginTop: 16, color: '#222', fontWeight: '800', fontSize: '2rem' }}>{candle.name}</h2>
@@ -155,7 +155,7 @@ const Collection1 = ({ addToCart }) => {
       outOfStock: false,
       name: 'Coastal Linen',
       image: cln,
-      shortDescription: 'Fresh linen with a soft coastal breeze.',
+      shortDescription: 'Fresh linen with a soft coastal breeze. An odor eliminator.',
       longDescription: 'Airy cotton, subtle florals, and clean musk come together to create a calm, sun washed scent inspired by open windows and ocean air.',
       price: 19.99,
       notes: {
@@ -207,14 +207,14 @@ const Collection1 = ({ addToCart }) => {
               )}
               {window.innerWidth <= 640 ? (
                 <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 4, margin: '8px 20px' }}>
-                  <span style={{ fontWeight: '700', color: '#111' }}>${candle.price.toFixed(2)}</span>
+                  <span style={{ fontWeight: '700', color: '#111', display: 'inline-block', marginBottom: 6 }}>${candle.price.toFixed(2)}</span>
                   {candle.outOfStock && (
                     <span style={{ fontSize: '0.8rem', color: '#b00000', fontWeight: '600' }}>Sold Out</span>
                   )}
                 </div>
               ) : (
                 <>
-                  <p style={{ fontWeight: '700', margin: '6px 20px 0 20px', textAlign: 'center', color: '#111' }}>
+                  <p style={{ fontWeight: '700', margin: '6px 20px 6px 20px', textAlign: 'center', color: '#111' }}>
                     ${candle.price.toFixed(2)}
                   </p>
                   {candle.outOfStock && (
@@ -312,6 +312,8 @@ const imageStyle = {
   height: '100%',
   width: '100%',
   objectFit: 'cover',
+  transform: 'scale(1)',
+  objectPosition: 'center',
 };
 
 const titleStyle = {

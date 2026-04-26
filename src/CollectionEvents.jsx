@@ -181,50 +181,12 @@ const Collection1 = ({ addToCart }) => {
             </p>
             <h3 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>The Candle Workshop</h3>
             <p style={{ fontSize: '1rem', marginBottom: '2rem' }}>
-              Learn about the careful, intricate process required to make a great candle as you pour two candles each with your choice of scent and a custom label.<br/><br/>5:00pm, April 25<br/><br/> The Vault Room, 1248 56th st, Delta, BC
+              This event has finished.<br/><br/>
+              Thanks to everyone who came out — more workshops coming soon.
             </p>
-            <div style={ticketButtonContainerStyle}>
-              <button
-                style={{
-                  ...baseButtonStyle,
-                  backgroundColor: '#f0f0f0',
-                  color: '#000',
-                  width: isMobile ? '100%' : '48%',
-                }}
-                onClick={() =>
-                  handleAddToCart({
-                    id: 'workshop-solo',
-                    name: 'Candle Workshop Ticket (Single)',
-                    price: 45.00,
-                    type: 'workshop-ticket',
-                    details: 'Admits one person. April 25, 5:00pm at The Vault Room.',
-                  })
-                }
-                aria-label="Purchase single workshop ticket"
-              >
-                Solo Ticket – $45<br/>(One Person)
-              </button>
-              <button
-                style={{
-                  ...baseButtonStyle,
-                  backgroundColor: '#f0f0f0',
-                  color: '#000',
-                  width: isMobile ? '100%' : '48%',
-                }}
-                onClick={() =>
-                  handleAddToCart({
-                    id: 'workshop-duo',
-                    name: 'Candle Workshop Ticket (Two People)',
-                    price: 80.00,
-                    type: 'workshop-ticket',
-                    details: 'Admits two people. April 25, 5:00pm at The Vault Room.',
-                  })
-                }
-                aria-label="Purchase two-person workshop ticket"
-              >
-                Duo Ticket – $80<br/>(Two People)
-              </button>
-            </div>
+            <p style={{ fontSize: '0.95rem', opacity: 0.85 }}>
+              Tickets are no longer available.
+            </p>
           </div>
         </div>
       </div>

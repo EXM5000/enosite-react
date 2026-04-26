@@ -9,9 +9,9 @@ const ShippingDisc = () => {
         <img src={us} alt="Candles" style={imageStyle} />
       </div>
       <div style={textContainerStyle}>
-        <h2 style={titleStyle}>About Our Brand</h2>
+        <h2 style={titleStyle}>About Us</h2>
         <p style={textStyle}>
-          Our candles are lovingly handcrafted by two friends in Tsawwassen, BC. Each candle is made with care, using non-toxic ingredients and 100% soy wax, designed to bring warmth, comfort, and a touch of nostalgia to your home. Thank you for sharing in our journey and supporting our small, heartfelt craft.
+          Sam and I have been in business together since we were 14. The both of us have always loved the idea of creating and growing something from scratch. After a series of failed T-shirt brands and coffee supply companies, we had our first crack at candles in the fall of 2024. <br></br><br></br>Concrete jars, soy wax, and a shed in my backyard created Flame. As it turns out, Concrete is not easy to work with, and we ended up ditching the project around Febuary. The scent and wax we're great, but the jars just weren't practical. Then, come summer 2025, I receive a text from Sam asking for the supplies to make candles. <br></br><br></br>He wanted a summer project; It was never supposed to be a business. A few days later, he came back with these awesome, minimalist candles, and I just knew we had to sell them. When we posted them on Facebook, we had something like 20 orders in the first 2 hours. And so, here we are! <br></br><br></br> - Evan
         </p>
       </div>
     </section>

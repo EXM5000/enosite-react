@@ -144,7 +144,7 @@ function NavBar({ onCartClick, cartCount }) {
                 alignItems: 'center',
                 margin: 0,
                 padding: 0,
-                fontFamily: 'Roboto, sans-serif'
+                fontFamily: 'Arial, sans-serif'
               }}
             >
               <li><Link to="/" style={styles.individualLinks} onClick={handleMenuLinkClick}>Home</Link></li>
@@ -208,7 +208,8 @@ const styles = {
   individualLinks: {
     textDecoration: 'none',
     color: '#0d0d0d',
-    fontSize: '1rem'
+    fontSize: '1rem',
+    fontFamily: 'Arial, sans-serif'
   },
   cart: {
     fontSize: '1.5rem',
