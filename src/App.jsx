@@ -6,6 +6,7 @@ import Cart from './Cart.jsx';
 import CollectionPrevious from './CollectionPrevious.jsx';
 import Collection0 from './Collection0.jsx';
 import Collection4 from './Collection4.jsx';
+import Collection5 from './Collection5.jsx';
 import Footer from './Footer.jsx';
 import About from './About.jsx';
 import Stores from './Stores.jsx';
@@ -59,7 +60,7 @@ function App() {
         <Route path="/" element={
           <>
             <HeroSection />
-            <Collection4 addToCart={addToCart} />
+            <Collection5 addToCart={addToCart} />
             <SpecialFeatures />
           </>
         } />
@@ -67,6 +68,7 @@ function App() {
           path="/collection"
           element={
             <div style={{ paddingTop: '0px' }}>
+              <Collection5 addToCart={addToCart} />
               <Collection4 addToCart={addToCart} />
               <CollectionPrevious addToCart={addToCart} />
               <Collection0 addToCart={addToCart} />

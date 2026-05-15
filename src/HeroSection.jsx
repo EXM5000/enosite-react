@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import heroImage from './assets/springwhite.png';
+import heroImage from './assets/SummerCollection.jpg';
 
 const GOLDEN_RATIO = 1.618;
 
@@ -11,7 +11,7 @@ const styles = {
     margin: 0,
     padding: 0,
     boxSizing: 'border-box',
-    backgroundImage: window.innerWidth <= 600 ? 'none' : `url(${heroImage})`,
+    backgroundImage: 'none',
     backgroundSize: 'cover',         // scale to cover entire container
     backgroundRepeat: 'no-repeat',   // prevent repeating
     backgroundPosition: 'center',    // center the image
@@ -35,7 +35,8 @@ const styles = {
     transform: window.innerWidth <= 600 ? 'translateY(40px)' : 'translateY(-40px)',
   },
   heading: {
-    color: '#000',
+    color: '#214723',
+    textShadow: '0 0 18px rgba(255, 255, 255, 0.95), 0 0 40px rgba(255, 255, 255, 0.5)',
     fontSize: '3rem',
     fontWeight: 300,
     marginBottom: window.innerWidth <= 600 ? '3rem' : '1.5rem',
@@ -79,18 +80,20 @@ const HeroSection = () => {
             fetchpriority="high"
             style={{
               position: 'absolute',
-              top: window.innerWidth <= 600 ? '40px' : 0,
+              top: 0,
+              bottom: 0,
               left: 0,
               width: '100%',
-              height: window.innerWidth <= 600 ? 'calc(100% - 40px)' : '100%',
+              height: '100%',
               objectFit: 'cover',
-              objectPosition: window.innerWidth <= 600 ? 'center 20%' : 'center -15%',
+              objectPosition: 'center bottom',
               zIndex: 0,
-              clipPath: 'inset(0 0 15% 0)',
+              clipPath: 'inset(2% 0 0 0)',
             }}
           />
         <div style={styles.overlay}>
-          <h1 style={styles.heading}>Handcrafted Luxury</h1>
+          <h1 style={styles.heading}>The Summer Collection is Here!
+          </h1>
           <Link to="/collection" style={{ textDecoration: 'none' }}>
             <button style={styles.button}>Shop now</button>
           </Link>
